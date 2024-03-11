@@ -4,7 +4,7 @@ const { engine, ExpressHandlebars } = require('express-handlebars')
 const SequelizeStore = require("connect-session-sequelize")(session.Store) 
 const router = require('./api/router') 
 const app = express() 
-const port = 3000 
+const port = 5000 
 const path = require('path') 
 const config = require('./config')
 const Handlebars = require("handlebars") 
@@ -46,25 +46,21 @@ app.use(session({
 app.use('*', (req, res, next) => {
     if (req.session.username) { 
         res.locals.username = req.session.username 
-        if (req.session.isAdmin) { // Vérification si l'utilisateur est administrateur
-            res.locals.isAdmin = req.session.isAdmin // Variable locale indiquant si l'utilisateur est administrateur
+        if (req.session.isAdmin) { 
+            res.locals.isAdmin = req.session.isAdmin
         }
     }
-    next() // Appel de la fonction next pour passer au middleware suivant
+    next()
 })
 
-// Utilisation du routeur défini dans ./api/router pour gérer les routes
 app.use('/', router)
 
-// Vérification de la connexion à la base de données Sequelize
 try {
     config.sequelize.authenticate()
-    console.log('Connection has been established successfully.') // Affichage d'un message si la connexion réussit
+    console.log('Connection has been established successfully.') 
 } catch (error) {
-    console.error('Unable to connect to the database:', error) // Affichage d'une erreur en cas d'échec de connexion
-}
+    console.error('Unable to connect to the database:', error) }
 
-// Démarrage du serveur sur le port spécifié
 app.listen(port, () => {
-    console.log(`Example app listening at: https://127.0.0.1:${port}`) // Affichage d'un message indiquant que le serveur est en écoute
+    console.log(`Example app listening at: https://127.0.0.1:${port}`) 
 })
