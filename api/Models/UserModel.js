@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 const config = require('../../config')
 
-const User = config.sequelize.define('Users', {
+const User = config.sequelize.define('users', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -23,10 +23,6 @@ const User = config.sequelize.define('Users', {
       
     },
     isVerified: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
-    isAdmin:{
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
