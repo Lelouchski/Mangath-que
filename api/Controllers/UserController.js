@@ -5,8 +5,8 @@ module.exports = {
     },
 
     create: async(req,res) =>{
-            const result = validationResult(req) // Validation des données de la requête
-            const user = await User.findOne({ // Recherche d'un utilisateur existant avec le même nom d'utilisateur ou email
+            const result = validationResult(req) 
+            const user = await User.findOne({ 
                 where: {
                     [Op.or]: [
                         { username: req.body.username },

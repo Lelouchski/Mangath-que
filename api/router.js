@@ -9,5 +9,6 @@ router.route('/Login')
     .get(userController.get)
 router.route('/user/create')
     .post(userController.create)
+    
 module.exports = router
 
