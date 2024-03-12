@@ -6,15 +6,13 @@ const User = config.sequelize.define('users', {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      validate: {
-      }
+      
     },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: {
-      }
+     
     },
     email: {
       type: DataTypes.STRING,

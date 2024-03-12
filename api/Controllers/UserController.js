@@ -1,3 +1,7 @@
+const { validationResult } = require('express-validator') // Importation de la fonction validationResult d'express-validator
+const { Op } = require("sequelize") // Importation de l'opérateur d'égalité Sequelize
+const User = require('../Models/UserModel')
+
 module.exports = {
 
     get: (req, res) => {
@@ -7,7 +11,7 @@ module.exports = {
         res.render('user_create')
     },
 
-    create: async(req,res) =>{
+    post: async(req,res) =>{
             const result = validationResult(req) 
             const user = await User.findOne({ 
                 where: {
