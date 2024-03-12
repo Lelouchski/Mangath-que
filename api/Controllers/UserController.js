@@ -8,7 +8,7 @@ module.exports = {
         res.render('Login')
     },
     userAccount: (req, res) => {
-        res.render('user_create')
+        res.render('Inscription')
     },
 
     post: async(req,res) =>{
@@ -24,7 +24,7 @@ module.exports = {
     
             if (!result.isEmpty()) { // Si des erreurs de validation existent
                 // Rendu de la vue user_create avec les données saisies et les erreurs de validation
-                res.render('user_create', { email, username, password, 'errors': result.errors })
+                res.render('Inscription', { email, username, password, 'errors': result.errors })
     
             } else { // Si aucune erreur de validation
                 // Création d'un nouvel utilisateur avec les données saisies

@@ -9,7 +9,7 @@ router.route('/HomePage').get(homeController.get)
 router.route('/Login').get(userController.get)
 
 router.route('/Inscription').get(userController.userAccount)
-router.route('/user/create').post(userController.post)
+router.route('/Inscription').post(userController.post)
 
 module.exports = router
 
