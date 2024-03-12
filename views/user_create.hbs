@@ -11,33 +11,35 @@
         <span>{{error}}</span>
       </div>
       {{/if}}
-      <form action="/user/register" method="post">
-        <div class="mb-3">
-          <label for="username" class="form-label">Votre nom d'utilisateur</label>
-          <input name="username" type="username" class="form-control border border-warning-subtle" id="username" placeholder="username">
+      <div class="card">
+        <div class="card-body">
+          <form action="/user/register" method="post">
+            <div class="mb-3">
+              <label for="username" class="form-label">Votre nom d'utilisateur</label>
+              <input name="username" type="username" class="form-control" id="username" placeholder="username">
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Rentrer votre email</label>
+              <input name="email" type="email" class="form-control" id="email" placeholder="nom@exemple.fr">
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Rentrer votre mot de passe</label>
+              <input name="password" type="password" class="form-control" id="password">
+            </div>
+
+            <div class="mb-3">
+              <label for="confPassword" class="form-label">Confirmer votre mot de passe</label>
+              <input name="confPassword" type="password" class="form-control" id="confPassword">
+            </div>
+
+            <div class="mb-3">
+              <button class="btn btn-primary" type="submit">Envoyer</button>
+            </div>
+          </form>
         </div>
-
-        <div class="mb-3">
-          <label for="email" class="form-label">Rentrer votre email</label>
-          <input name="email" type="email" class="form-control" id="email" placeholder="nom@exemple.fr">
-        </div>
-
-        <div class="mb-3">
-          <label for="password" class="form-label">Rentrer votre mot de passe</label>
-          <input name="password" type="password" class="form-control" id="password">
-        </div>
-
-        <div class="mb-3">
-          <label for="confPassword" class="form-label">Confirmer vote mot de passe</label>
-          <input name="confPassword" type="password" class="form-control" id="confPassword">
-        </div>
-
-        <div class="mb-3">
-          <button class="btn btn-outline-primary" type="submit">Envoyer</button>
-        </div>
-      </form>
-
-
+      </div>
     </div>
   </div>
 </div>

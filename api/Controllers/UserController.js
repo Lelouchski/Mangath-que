@@ -3,6 +3,9 @@ module.exports = {
     get: (req, res) => {
         res.render('Login')
     },
+    userAccount: (req, res) => {
+        res.render('user_create')
+    },
 
     create: async(req,res) =>{
             const result = validationResult(req) 
