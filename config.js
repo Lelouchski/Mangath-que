@@ -9,5 +9,7 @@ const sequelize = new Sequelize('mangathèque', 'root', '', {
 // Synchronisation du modèle avec la base de données
 sequelize.sync()
 
+const secretPassword = 'motdepasse'
 
-module.exports = { sequelize }
+
+module.exports = { sequelize, secretPassword }
