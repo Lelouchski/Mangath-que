@@ -26,5 +26,5 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/', router)
 
 app.listen(port, () => {
-    console.log(`Example app listening at: https://127.0.0.1:${port}`) 
+    console.log(`Example app listening at: http://127.0.0.1:${port}`) 
 })
