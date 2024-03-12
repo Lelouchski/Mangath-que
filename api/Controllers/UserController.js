@@ -33,7 +33,7 @@ module.exports = {
                     username: req.body.username,
                     password: req.body.password
                 })
-                res.redirect('/') // Redirection vers la page d'accueil
+                res.redirect('/HomePage') // Redirection vers la page d'accueil
             }
         },
     }
