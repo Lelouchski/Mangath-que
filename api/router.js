@@ -8,8 +8,11 @@ router.route('/').get(homeController.get)
 
 router.route('/Login').get(userController.get)
 
-router.route('/Inscription').get(userController.userAccount)
+router.route('/Inscription').get(userController.inscription)
 router.route('/Inscription').post(userController.post)
+router.route('/Account').post(userController.login)
+router.route('/Account').post(userController.account)
+
 
 module.exports = router
 
