@@ -1,3 +1,8 @@
+const { validationResult } = require('express-validator') // Importation de la fonction validationResult d'express-validator
+const { Op } = require("sequelize") // Importation de l'opérateur d'égalité Sequelize
+const User = require('../Models/UserModel')
+const bcrypt = require('bcrypt') // Importation du module bcrypt pour le hachage des mots de passe
+
 module.exports = {
 
     get: (req, res) => {
@@ -30,4 +35,3 @@ module.exports = {
             }
         },
     }
-git 

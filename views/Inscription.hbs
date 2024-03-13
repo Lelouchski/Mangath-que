@@ -1,0 +1,48 @@
+<div class="container p-5">
+  <div class="row ">
+    <div class="col-md-6 mx-auto text-center">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      {{#if error}}
+      <div class="mb-3 text-danger">
+        <span>{{error}}</span>
+      </div>
+      {{/if}}
+      <div class="card">
+        <div class="card-header text-center text-uppercase bg-warning-subtle ">
+          Inscription
+        </div>
+        <div class="card-body">
+          <form action="/Inscription" method="post">
+            <div class="mb-3">
+              <label for="username" class="form-label">Nom d'utilisateur</label>
+              <input name="username" type="text" class="form-control" id="username" placeholder="username">
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Adresse mail</label>
+              <input name="email" type="email" class="form-control" id="email" placeholder="nom@exemple.fr">
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Mot de passe</label>
+              <input name="password" type="password" class="form-control" id="password" placeholder="Mot de passe">
+            </div>
+
+            <div class="mb-3">
+              <label for="confPassword" class="form-label">Confirmation du mot de passe</label>
+              <input name="confPassword" type="password" class="form-control" id="confPassword"
+                placeholder="Confirmer le mot de passe">
+            </div>
+
+            <div class="mb-3 d-flex justify-content-center">
+              <button class="btn btn-warning" type="submit">Inscription</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

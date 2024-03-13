@@ -1,38 +1,44 @@
 const { DataTypes } = require('sequelize')
 const config = require('../../config')
+const bcrypt = require('bcrypt')
 
-const User = config.sequelize.define('Users', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      validate: {
-      }
-    },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-      }
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      
-    },
-    isVerified: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
-    isAdmin:{
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    }})
+const User = config.sequelize.define('users', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
 
-    module.exports = User
+  },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+
+  },
+  isVerified: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
+},
+  {
+    hooks: {
+      // Avant la création d'un utilisateur, hacher le mot de passe s'il est défini
+      beforeCreate: (User) => {
+        User.password = User.password && User.password !== "" ? bcrypt.hashSync(User.password, 10) : ""
+      }
+    }
+  }
+
+)
+
+module.exports = User

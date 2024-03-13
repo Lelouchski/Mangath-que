@@ -7,6 +7,9 @@ const port = 5000
 const path = require('path') 
 const session = require('express-session') // Express-session est un middleware de gestion de session pour Express
 const SequelizeStore = require("connect-session-sequelize")(session.Store) // Connect-session-sequelize est un connecteur de session pour Sequelize
+const Handlebars = require("handlebars")
+const MomentHandler = require("handlebars.moment") // Handlebars.moment est un wrapper pour Handlebars pour formater les dates et heures
+MomentHandler.registerHelpers(Handlebars) // Enregistrement des helpers Handlebars fournis par Handlebars.moment
 
 
 app.engine('hbs', engine({
