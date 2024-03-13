@@ -47,7 +47,7 @@ module.exports = {
                 } else { // Si les mots de passe correspondent
                     // Enregistrement de l'utilisateur dans la session
                     req.session.username = user.username
-                    req.session.UserId = user.id
+                    // req.session.UserId = user.id
                     res.redirect('/Account') 
                 }
             })
