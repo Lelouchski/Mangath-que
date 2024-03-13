@@ -25,6 +25,10 @@ module.exports = {
         console.log(req.session.username);
         res.redirect('/') // Redirection vers la page d'accueil
     },
+    account : (req, res) => {
+        res.render('Account')
+    },
+   
     login: async (req, res) => {
         // Recherche de l'utilisateur en fonction du nom d'utilisateur ou de l'email saisi
         const user = await User.findOne({
