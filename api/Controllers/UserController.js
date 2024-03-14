@@ -2,6 +2,10 @@ const { validationResult } = require('express-validator') // Importation de la f
 const { Op } = require("sequelize") // Importation de l'opérateur d'égalité Sequelize
 const User = require('../Models/UserModel')
 const bcrypt = require('bcrypt') // Importation du module bcrypt pour le hachage des mots de passe
+const Manga = require('../Models/MangaModel')
+const Author = require('../Models/AuthorModel')
+const Kind = require('../Models/KindModel')
+const Status = require('../Models/StatusModel')
 
 module.exports = {
 
@@ -11,6 +15,10 @@ module.exports = {
     inscription: (req, res) => {
         res.render('Inscription')
     },
+    // account: (req, res) => {
+    //     res.render('Account')
+    // },
+
     post: async (req, res) => {
 
         await User.create({
@@ -19,12 +27,12 @@ module.exports = {
             password: req.body.password
         })
         console.log(req.session.username);
-        res.redirect('/') // Redirection vers la page d'accueil
+        res.redirect('/Login') // Redirection vers la page d'accueil
     },
-    account : (req, res) => {
+    account: (req, res) => {
         res.render('Account')
     },
-   
+
     login: async (req, res) => {
         // Recherche de l'utilisateur en fonction du nom d'utilisateur ou de l'email saisi
         const user = await User.findOne({
@@ -48,10 +56,15 @@ module.exports = {
                     // Enregistrement de l'utilisateur dans la session
                     req.session.username = user.username
                     // req.session.UserId = user.id
-                    res.redirect('/Account') 
+                    res.redirect('/Account')
                 }
             })
         }
+    },
+    
+    logout: (req, res) => {
+        req.session.destroy() // Suppression de la session
+        res.redirect('/') // Redirection vers la page d'accueil
     }
 }
 
