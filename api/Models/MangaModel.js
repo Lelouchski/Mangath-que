@@ -9,17 +9,21 @@ const Manga = config.sequelize.define('mangas', {
         autoIncrement: true,
     
       },
-    name: {
+    title: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
     },
-    date: {
-        date: DataTypes.DATE,
+    kind: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    author: {
+        type: DataTypes.STRING,
         allowNull: false,
     },
     volume: {
-        volume: DataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
     }
 }
