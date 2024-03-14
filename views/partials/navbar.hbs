@@ -11,6 +11,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0 d-flex">
+                    <form action="/logout" method="get">
+                        <button type="submit" class="btn btn-danger">
+                            Logout
+                        </button>
+                    </form>
                     <li class="me-2 mt-2 btn border-light">
                         <a href="{{#if username}}/Account{{else}}/Login{{/if}}" aria-label="Compte utilisateur"><img
                                 src="/assets/images/utilisateur.png" style="height: 32px;" alt=""></a>

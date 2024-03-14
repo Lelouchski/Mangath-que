@@ -25,7 +25,7 @@ module.exports = {
             password: req.body.password
         })
         console.log(req.session.username);
-        res.redirect('/') // Redirection vers la page d'accueil
+        res.redirect('/Login') // Redirection vers la page d'accueil
     },
     account: (req, res) => {
         res.render('Account')
@@ -58,6 +58,11 @@ module.exports = {
                 }
             })
         }
+    },
+    
+    logout: (req, res) => {
+        req.session.destroy() // Suppression de la session
+        res.redirect('/') // Redirection vers la page d'accueil
     }
 }
 
