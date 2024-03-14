@@ -1,9 +1,11 @@
 #iconAccount {
-background: #fefefe;
-border-radius: 100%;
+    background: #fefefe;
+    border-radius: 100%;
+    height: 32px
 }
 
-#lightmode{
+#lightmode {
     background: #fefefe;
-border-radius: 100%;
+    border-radius: 50%;
+    height: 32px
 }
