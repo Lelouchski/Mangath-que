@@ -11,9 +11,7 @@ module.exports = {
     inscription: (req, res) => {
         res.render('Inscription')
     },
-    // account: (req, res) => {
-    //     res.render('Account')
-    // },
+    
 
     post: async (req, res) => {
 
@@ -41,7 +39,7 @@ module.exports = {
         })
 
         if (!user) { // Si aucun utilisateur correspondant n'est trouvé
-            res.render('HomePage', { email, username, password, 'errors': result.errors })
+            res.render('HomePage', { email, password, 'errors': result.errors })
         } else { // Si un utilisateur correspondant est trouvé
             // Comparaison du mot de passe saisi avec le mot de passe haché de l'utilisateur en base de données
             bcrypt.compare(req.body.password, user.password, async (err, result) => {
