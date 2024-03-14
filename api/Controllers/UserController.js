@@ -25,10 +25,10 @@ module.exports = {
         console.log(req.session.username);
         res.redirect('/') // Redirection vers la page d'accueil
     },
-    account : (req, res) => {
+    account: (req, res) => {
         res.render('Account')
     },
-   
+
     login: async (req, res) => {
         // Recherche de l'utilisateur en fonction du nom d'utilisateur ou de l'email saisi
         const user = await User.findOne({
@@ -51,8 +51,16 @@ module.exports = {
                 } else { // Si les mots de passe correspondent
                     // Enregistrement de l'utilisateur dans la session
                     req.session.username = user.username
+                    if (user) {
+                        const isUserLoggedIn = true
+                        const templateData = {
+                            userLink: userLink
+                        };
+                        
+                        const renderedHtml = Handlebars.compile(yourTemplate)(templateData);
+                    }
                     // req.session.UserId = user.id
-                    res.redirect('/Account') 
+                    res.redirect('/Account')
                 }
             })
         }
