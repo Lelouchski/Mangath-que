@@ -4,21 +4,40 @@
             <a class="navbar-brand" aria-label="Logo du site" href="/"><img src="/assets//images/bande-dessinee (1).png"
                     alt=""></a>
             <a class="navbar-brand" aria-label="Nom du site" href="/">MANGATHÈQUE</a>
-            {{#if username}}
-            <p class="ms-5 mt-3">Bonjour {{username}}</p>
-            {{/if}}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="me-2 mt-2">
-                        <a href="/Login" aria-label="Compte utilisateur"><img src="/assets/images/utilisateur.png"
-                                style="height: 32px;" alt=""></a>
+                <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0 d-flex">
+                    {{#if username}}
+                    <li class="nav-item dropdown me-2 mt-2 ">
+                        <button class="dropdown-toggle btn" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false"><img src="/assets/images/account.png" alt="" style="height: 32px;"
+                                id="iconAccount">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="/Account">Mon compte</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/Watchlist">Watchlist</a>
+                            </li>
+                            <hr class="dropdown-divider">
+                            <li>
+                                <a class="dropdown-item" href="/logout">Déconnexion</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
+                    {{else}}
+                    <li class="me-2 mt-2 btn">
+                        <a href="/Login" aria-label="Connexion">
+                            <img src="/assets/images/account.png" id="iconAccount" style="height: 32px;" alt="">
+                        </a>
+                    </li>
+                    {{/if}}
+                    <li class="me-2 mt-2 ">
                         <button aria-label="Dark mode" class="btn">
                             <img id="lightmode" src="/assets/images/moon.png" alt="">
                         </button>
@@ -29,16 +48,35 @@
                             Genres
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Shonen</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#">Shonen</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Seinen</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Seijin</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Josei</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Kowai</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Animés
+                            Mangas
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Tendances</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#">Tendances</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/NewsMangas">Nouveautés</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

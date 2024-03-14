@@ -2,6 +2,10 @@ const { validationResult } = require('express-validator') // Importation de la f
 const { Op } = require("sequelize") // Importation de l'opérateur d'égalité Sequelize
 const User = require('../Models/UserModel')
 const bcrypt = require('bcrypt') // Importation du module bcrypt pour le hachage des mots de passe
+const Manga = require('../Models/MangaModel')
+const Author = require('../Models/AuthorModel')
+const Kind = require('../Models/KindModel')
+const Status = require('../Models/StatusModel')
 
 module.exports = {
 
@@ -11,9 +15,12 @@ module.exports = {
     inscription: (req, res) => {
         res.render('Inscription')
     },
-    // account: (req, res) => {
-    //     res.render('Account')
-    // },
+    watchlist: (req, res) => {
+        res.render('Watchlist')
+    },
+    newMangas: (req, res) => {
+        res.render('NewsMangas')
+    },
 
     post: async (req, res) => {
 
@@ -23,8 +30,12 @@ module.exports = {
             password: req.body.password
         })
         console.log(req.session.username);
-        res.redirect('/') // Redirection vers la page d'accueil
+        res.redirect('/Login') // Redirection vers la page d'accueil
     },
+    account: (req, res) => {
+        res.render('Account')
+    },
+
     login: async (req, res) => {
         // Recherche de l'utilisateur en fonction du nom d'utilisateur ou de l'email saisi
         const user = await User.findOne({
@@ -37,7 +48,7 @@ module.exports = {
         })
 
         if (!user) { // Si aucun utilisateur correspondant n'est trouvé
-            res.render('HomePage', { email, username, password, 'errors': result.errors })
+            res.render('HomePage', { email, password, 'errors': result.errors })
         } else { // Si un utilisateur correspondant est trouvé
             // Comparaison du mot de passe saisi avec le mot de passe haché de l'utilisateur en base de données
             bcrypt.compare(req.body.password, user.password, async (err, result) => {
@@ -48,10 +59,15 @@ module.exports = {
                     // Enregistrement de l'utilisateur dans la session
                     req.session.username = user.username
                     // req.session.UserId = user.id
-                    res.redirect('/Account') 
+                    res.redirect('/Account')
                 }
             })
         }
+    },
+    
+    logout: (req, res) => {
+        req.session.destroy() // Suppression de la session
+        res.redirect('/') // Redirection vers la page d'accueil
     }
 }
 
