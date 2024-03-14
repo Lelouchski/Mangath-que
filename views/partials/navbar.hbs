@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" aria-label="Logo du site" href="/">
-                <img src="/assets//images/bande-dessinee (1).png" alt="">
+                <img src="/assets//images/bande-dessinee.png" alt="">
             </a>
             <a class="navbar-brand" aria-label="Nom du site" href="/">MANGATHÈQUE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -11,7 +11,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto align-items-center mb-2 mb-lg-0 d-flex ms-3">
+                <ul class="navbar-nav me-auto align-items-center mb-2 mb-lg-0 d-flex">
                     <li class="nav-item dropdown me-2 mt-2">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -44,6 +44,7 @@
                     </form>
                 </ul>
                 <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0 d-flex">
+                    {{#if username}}
                     <li class="nav-item dropdown me-2 mt-2">
                         <button class="dropdown-toggle btn" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -56,6 +57,13 @@
                             <li><a class="dropdown-item" href="/logout">Déconnexion</a></li>
                         </ul>
                     </li>
+                    {{else}}
+                    <li class="me-2 mt-2 btn">
+                        <a href="/Login" aria-label="Connexion">
+                            <img src="/assets/images/account.png" id="iconAccount">
+                        </a>
+                    </li>
+                    {{/if}}
                     <li class="me-2 mt-2">
                         <button aria-label="Dark mode" class="btn">
                             <img id="lightmode" src="/assets/images/moon.png" alt="">
