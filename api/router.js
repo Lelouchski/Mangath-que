@@ -13,6 +13,10 @@ router.route('/Inscription').post(userController.post)
 router.route('/Account').post(userController.login)
 router.route('/Account').get(userController.account)
 router.route('/logout').get(userController.logout)
+router.route('/watchlist').get(userController.watchlist)
+router.route('/NewsMangas').get(userController.newMangas)
+
+
 
 
 

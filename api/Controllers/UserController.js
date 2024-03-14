@@ -15,7 +15,12 @@ module.exports = {
     inscription: (req, res) => {
         res.render('Inscription')
     },
-
+    watchlist: (req, res) => {
+        res.render('Watchlist')
+    },
+    newMangas: (req, res) => {
+        res.render('NewsMangas')
+    },
 
     post: async (req, res) => {
 
