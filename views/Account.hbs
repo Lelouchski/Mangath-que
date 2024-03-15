@@ -3,8 +3,11 @@
 
         <div class="col-md-3">
             <ul class="list-group">
-                <li class="list-group-item">
+                <li class="list-group-item d-flex ">
                     <img src="/assets/images/account.png" alt="" id="iconAccountPage">
+                    {{#if username}}
+                    <p class="ms-4">Bonjour {{username}}</p>
+                    {{/if}}
                 </li>
                 <li id="list-account" class="list-group-item ">
                     <a href="#" class="text-decoration-none">Modifier son mot de passe</a>
