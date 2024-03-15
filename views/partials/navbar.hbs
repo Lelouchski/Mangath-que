@@ -1,8 +1,9 @@
 <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" aria-label="Logo du site" href="/"><img src="/assets//images/bande-dessinee (1).png"
-                    alt=""></a>
+            <a class="navbar-brand" aria-label="Logo du site" href="/">
+                <img src="/assets//images/bande-dessinee.png" alt="">
+            </a>
             <a class="navbar-brand" aria-label="Nom du site" href="/">MANGATHÈQUE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -10,81 +11,88 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0 d-flex">
-                    {{#if username}}
-                    <li class="nav-item dropdown me-2 mt-2 ">
-                        <button class="dropdown-toggle btn" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false"><img src="/assets/images/account.png" alt="" style="height: 32px;"
-                                id="iconAccount">
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="dropdown-item" href="/Account">Mon compte</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/Watchlist">Watchlist</a>
-                            </li>
-                            <hr class="dropdown-divider">
-                            <li>
-                                <a class="dropdown-item" href="/logout">Déconnexion</a>
-                            </li>
-                        </ul>
-                    </li>
-                    {{else}}
-                    <li class="me-2 mt-2 btn">
-                        <a href="/Login" aria-label="Connexion">
-                            <img src="/assets/images/account.png" id="iconAccount" style="height: 32px;" alt="">
-                        </a>
-                    </li>
-                    {{/if}}
-                    <li class="me-2 mt-2 ">
-                        <button aria-label="Dark mode" class="btn">
-                            <img id="lightmode" src="/assets/images/moon.png" alt="">
-                        </button>
-                    </li>
-                    <li class="nav-item dropdown">
+                <ul class="navbar-nav me-auto align-items-center mb-2 mb-lg-0 d-flex">
+                    <li class="nav-item dropdown me-2 mt-2">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Genres
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#">Shonen</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Seinen</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Seijin</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Josei</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Kowai</a>
-                            </li>
+                            <li><a class="dropdown-item" href="#">Shonen</a></li>
+                            <li><a class="dropdown-item" href="#">Seinen</a></li>
+                            <li><a class="dropdown-item" href="#">Seijin</a></li>
+                            <li><a class="dropdown-item" href="#">Josei</a></li>
+                            <li><a class="dropdown-item" href="#">Kowai</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown me-2 mt-2">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Mangas
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#">Tendances</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/NewsMangas">Nouveautés</a>
-                            </li>
+                            <li><a class="dropdown-item" href="#">Tendances</a></li>
+                            <li><a class="dropdown-item" href="/NewsMangas">Nouveautés</a></li>
                         </ul>
                     </li>
+                    <form class="d-flex">
+                        <li class="me-2 mt-2">
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#searchModal">
+                                <img id="iconSearch" src="/assets/images/chercher (1).png" alt="">
+                            </button>
+                        </li>
+                    </form>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0 d-flex">
+                    {{#if username}}
+                    <li class="nav-item dropdown me-2 mt-2">
+                        <button class="dropdown-toggle btn" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="/assets/images/account.png" alt="" id="iconAccount">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/Account">Mon compte</a></li>
+                            <li><a class="dropdown-item" href="/Watchlist">Watchlist</a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="/logout">Déconnexion</a></li>
+                        </ul>
+                    </li>
+                    {{else}}
+                    <li class="me-2 mt-2 btn">
+                        <a href="/Login" aria-label="Connexion">
+                            <img src="/assets/images/account.png" id="iconAccount">
+                        </a>
+                    </li>
+                    {{/if}}
+                    <li class="me-2 mt-2">
+                        <button aria-label="Dark mode" class="btn">
+                            <img id="lightmode" src="/assets/images/moon.png" alt="">
+                        </button>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 </header>
+
+<!-- Modal pour la recherche -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchModalLabel">Rechercher</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="px-4 py-3">
+                    <div class="mb-3">
+                        <input type="text" class="form-control form-control-lg">
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-warning">Rechercher</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
