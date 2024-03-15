@@ -17,10 +17,6 @@ const Manga = config.sequelize.define('mangas', {
     kind: {
         type: DataTypes.INTEGER, 
         allowNull: false,
-        references: {
-            model: 'kinds', 
-            key: 'id', 
-        },
     },
     author: {
         type: DataTypes.STRING,

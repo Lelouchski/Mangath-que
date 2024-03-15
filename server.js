@@ -41,6 +41,9 @@ app.use('*', (req, res, next) => {
         if (req.session.isAdmin) { // Vérification si l'utilisateur est administrateur
             res.locals.isAdmin = req.session.isAdmin // Variable locale indiquant si l'utilisateur est administrateur
         }
+        if (req.session.isModerator) { // Vérification si l'utilisateur est modérateru
+            res.locals.isModerator = req.session.isModerator // Variable locale indiquant si l'utilisateur est modérateur
+        }
     }
     next() // Appel de la fonction next pour passer au middleware suivant
 })

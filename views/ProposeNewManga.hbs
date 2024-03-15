@@ -4,30 +4,22 @@
             Proposer un nouveau manga
         </div>
         <div class="card-body">
-            <form action="/Account" method="post">
+            <form action="/ProposeNewManga" method="post">
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Titre</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" name="titre">
+                    <label for="title" class="form-label">Titre</label>
+                    <input type="text" class="form-control" id="title" name="title">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Nom de l'auteur</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="surnameAuthor"
-                        aria-describedby="emailHelp">
+                    <label for="author" class="form-label">Auteur</label>
+                    <input type="text" class="form-control" id="author" name="author">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Prénom de l'auteur</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="nameAuthor"
-                        aria-describedby="emailHelp">
+                    <label for="kind" class="form-label">Genre</label>
+                    <input type="text" class="form-control" id="kind" name="kind">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Genre</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="kind"
-                        aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Nombre de tomes</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="numberBooks"
-                        aria-describedby="emailHelp">
+                    <label for="volume" class="form-label">Nombre de tomes</label>
+                    <input type="number" class="form-control" id="volume" name="volume">
                 </div>
                 <div class="d-flex justify-content-center mt-3">
                     <button type="submit" class="btn btn-warning ">Envoyer la demande</button>
