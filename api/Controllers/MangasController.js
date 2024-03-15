@@ -10,6 +10,14 @@ module.exports = {
     mostPopular: (req, res) => {
         res.render('MostPopular')
     },
+    newMangas: (req, res) => {
+        res.render('NewsMangas')
+    },
+    
+    newMangas: (req, res) => {
+        res.render('NewsMangas')
+    },
+
     kindOfMangas: async (req, res) => {
         const genre = req.params.genre
     

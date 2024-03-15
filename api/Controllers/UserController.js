@@ -18,9 +18,7 @@ module.exports = {
     watchlist: (req, res) => {
         res.render('Watchlist')
     },
-    newMangas: (req, res) => {
-        res.render('NewsMangas')
-    },
+    
 
     post: async (req, res) => {
 
@@ -68,8 +66,9 @@ module.exports = {
     logout: (req, res) => {
         req.session.destroy() // Suppression de la session
         res.redirect('/') // Redirection vers la page d'accueil
-    }
+    },
+
+    proposition : (req, res) => {
+        res.render('ProposeNewManga')
+    },
 }
-
-
-

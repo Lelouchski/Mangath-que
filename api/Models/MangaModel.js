@@ -15,11 +15,11 @@ const Manga = config.sequelize.define('mangas', {
         unique: true,
     },
     kind: {
-        type: DataTypes.STRING, // Assurez-vous que le type correspond à l'ID du genre dans la table kind_of_mangas
+        type: DataTypes.INTEGER, 
         allowNull: false,
         references: {
-            model: 'kinds', // Nom de la table référencée
-            key: 'id', // Clé primaire de la table référencée
+            model: 'kinds', 
+            key: 'id', 
         },
     },
     author: {
@@ -29,7 +29,11 @@ const Manga = config.sequelize.define('mangas', {
     volume: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    }
+    },
+    image_url: {
+        type: DataTypes.STRING, 
+        allowNull: true 
+    },
 }
 )
 
