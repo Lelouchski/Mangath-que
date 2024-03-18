@@ -14,6 +14,7 @@ const Manga = config.sequelize.define('mangas', {
         allowNull: false,
         unique: true,
     },
+    
     kind: {
         type: DataTypes.STRING,
         allowNull: false,
