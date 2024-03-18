@@ -93,4 +93,5 @@ module.exports = {
         const users = await User.findAll({ raw: true }) // Récupération de tous les utilisateurs depuis la base de données
         res.render('gestionUsers', { users, layout: 'admin' })// Rendu de la vue gestionUsers avec la liste des utilisateurs
     },
+    
 }

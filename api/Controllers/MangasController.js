@@ -4,19 +4,69 @@ const Manga = require('../Models/MangaModel')
 const Author = require('../Models/AuthorModel')
 const Kind = require('../Models/KindModel')
 const Status = require('../Models/StatusModel')
+const multer = require('multer')
+const { Op } = require("sequelize") // Importation de l'opérateur d'égalité Sequelize
+
+
+
 
 module.exports = {
 
     mostPopular: (req, res) => {
         res.render('MostPopular')
     },
-    newMangas:  async (req, res) => {
+    search: async (req, res) => {
+
+        const mangas = await Manga.findAll({
+            where: { title: { [Op.substring]: req.body.title } },
+            attributes: ['id', 'title', 'kind', 'author', 'volume', 'image_url'],
+            raw: true
+        })
+        res.render('NewsMangas', { mangas })
+    },
+
+    newMangas: async (req, res) => {
         const mangas = await Manga.findAll({ raw: true }) // Récupération de tous les mangas depuis la base de données
-        res.render('NewsMangas', { mangas}) // Rendu de la vue addMangas avec la liste des mangas
-      },
+        res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas
+    },
+    updateManga: async (req, res) => {
+        await Manga.update({ // Mise à jour des données de l'article avec les données de la requête
+            title: req.body.title,
+            author: req.body.author,
+            kind: req.body.kind,
+            volume: req.body.volume
+        }, {
+            where: {
+                id: req.params.id // Condition de mise à jour basée sur l'ID de l'article
+            }
+        })
+        res.redirect('/NewsManga') // Redirection vers la liste des articles
+    },
+    deleteMangas: async (req, res) => {
+        await Manga.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.redirect('/NewsMangas') // Redirection vers la liste des mangas
+    },
 
     addMangas: (req, res) => {
         res.render('addMangas')
+    },
+
+    postAddMangas: async (req, res) => {
+
+        await Manga.create({
+            title: req.body.title,
+            author: req.body.author,
+            kind: req.body.kind,
+            volume: req.body.volume,
+            image_url: req.file.path
+
+        })
+        res.redirect('NewsMangas') // Redirection vers la page 
+
     },
 
     kindOfMangas: async (req, res) => {
@@ -41,7 +91,7 @@ module.exports = {
     },
     postProposition: async (req, res) => {
         const result = validationResult(req) // Validation des données de la requête
-        const manga = await Manga.findOne({ 
+        const manga = await Manga.findOne({
             where: {
                 title: req.body.title
             }
@@ -60,7 +110,7 @@ module.exports = {
                 volume: req.body.volume,
 
             })
-            res.redirect('/') // Redirection vers la page d'accueil
+            res.redirect('NewsMangas') // Redirection vers la page d'accueil
         }
     }
 }

@@ -12,6 +12,7 @@ const MomentHandler = require("handlebars.moment") // Handlebars.moment est un w
 MomentHandler.registerHelpers(Handlebars) // Enregistrement des helpers Handlebars fournis par Handlebars.moment
 
 
+
 app.engine('hbs', engine({
     extname: 'hbs'}))
 
