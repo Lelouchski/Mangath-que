@@ -10,12 +10,13 @@ module.exports = {
     mostPopular: (req, res) => {
         res.render('MostPopular')
     },
-    newMangas: (req, res) => {
-        res.render('NewsMangas')
-    },
+    newMangas:  async (req, res) => {
+        const mangas = await Manga.findAll({ raw: true }) // Récupération de tous les mangas depuis la base de données
+        res.render('NewsMangas', { mangas}) // Rendu de la vue addMangas avec la liste des mangas
+      },
 
-    newMangas: (req, res) => {
-        res.render('NewsMangas')
+    addMangas: (req, res) => {
+        res.render('addMangas')
     },
 
     kindOfMangas: async (req, res) => {

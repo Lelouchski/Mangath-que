@@ -1,63 +1,68 @@
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="py-4 px-4">
-                <div class="d-flex align-items-center mb-3">
-                    <h4 class="mb-0 text-center flex-grow-1">Nouveautés</h4>
-                </div>
-                <hr>
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 mb-2">
-                        <div class="card">
-                            <img src="/assets/images/one piece.jpe" alt=""
-                                class="card-img-top rounded shadow-sm border-2 border-white">
-                            <div class="card-overlay">
-                                <p class="overlay-text">One piece<br>Auteur : Eiichirō Oda<br>Nombre de tomes : 108<br>Genre : shōnen </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-2">
-                        <div class="card">
-                            <img src="/assets/images/frieren.jpe" alt=""
-                                class="card-img-top rounded shadow-sm border-2 border-white">
-                            <div class="card-overlay">
-                                <p class="overlay-text">...</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-2">
-                        <div class="card">
-                            <img src="/assets/images/sololevelling.jpe" alt=""
-                                class="card-img-top rounded shadow-sm border-2 border-white">
-                            <div class="card-overlay">
-                                <p class="overlay-text">...</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mt-4">
-                        <div class="card-img">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
-                                class=" card rounded shadow-sm w-100 border-2 border-white">
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mt-4">
-                        <div class="card-img">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
-                                class=" card rounded shadow-sm w-100 border-2 border-white">
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mt-4">
-                        <div class="card-img">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
-                                class=" card rounded shadow-sm w-100 border-2 border-white">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="text-center">
-                    <a href="#" class="btn btn-link text-muted link-offset-1-hover">Voir plus</a>
+    <div class="row mt-5">
+        {{#each mangas}}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"> {{title}}</h5>
+                    <p class="card-text ">Auteur : {{author}}</p>
+                    <p class="card-text ">Genre : {{kind}}</p>
+                    <p class="card-text ">Nombre de tomes : {{volume}}</p>
+                    <p class=" card-img ">{{image_url}}</p>
+                    <hr>
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        {{#if @root.isAdmin}}
+        <div class="modal fade" id="Modal{{id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger-subtle ">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Suppression d'article</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Voulez-vous supprimer l'article définitivement? : {{title}}
+                    </div>
+                    <div class="modal-footer">
+                        <form action="/article/delete/{{id}}" method="post">
+                            <button type="submit" class="btn bg-danger-subtle border-white">Supprimer
+                                définitivement</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+        <!-- Modal Supprimer a refaire -->
+        <div class="modal fade" id="Modal{{id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger-subtle ">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Suppression d'article</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Voulez-vous supprimer l'article définitivement? : {{title}}
+                    </div>
+                    <div class="modal-footer">
+                        <form action="/article/delete/{{id}}" method="post">
+                            <button type="submit" class="btn bg-danger-subtle border-white">Supprimer
+                                définitivement</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{/each}}
+        {{#unless mangas}}
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                Il n'y a pas d'articles disponibles pour le moment.
+            </div>
+        </div>
+        {{/unless}}
     </div>
 </div>

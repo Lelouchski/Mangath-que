@@ -31,11 +31,14 @@ router.route('/MostPopular').get(MangasController.mostPopular)
 
 router.route('/KindOfMangas').get(MangasController.kindOfMangas)
 
-router.route('/KindOfMangas/:kind').get(MangasController.kindOfMangas)
+// router.route('/KindOfMangas/:kind').get(MangasController.kindOfMangas)
 
 router.route('/gestionUsers').get(userController.list)
 
 router.route('/listAddMangas').get(MangasController.list)
+
+router.route('/addMangas').get(MangasController.addMangas)
+
 
 
 
