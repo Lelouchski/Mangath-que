@@ -28,16 +28,12 @@ ul.list-group li#list-account.list-group-item a{
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
     transition: opacity 0.3s ease;
+    
 }
 
 .card:hover .card-overlay {
     opacity: 1;
 }
-.card img {
-    height: 100%; 
-    width: auto; 
-}
-.card{
-   max-height: 300px;
-   max-width: 215px;
+.overlay-content{
+    color:bisque;
 }

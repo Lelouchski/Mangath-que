@@ -30,6 +30,10 @@ const Manga = config.sequelize.define('mangas', {
         type: DataTypes.STRING, 
         allowNull: true 
     },
+    description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+    },
 }
 )
 

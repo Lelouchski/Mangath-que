@@ -42,7 +42,7 @@ const upload = multer({
     }
 })
 
-router.route('/NewsMangas').post(MangasController.search)
+router.route('/descriptionManga').post(MangasController.search)
 router.route('/').get(homeController.get)
 
 
@@ -65,7 +65,8 @@ router.route('/ProposeNewManga').post(MangasController.postProposition)
 router.route('/watchlist').get(userController.watchlist)
 
 router.route('/NewsMangas').get(MangasController.newMangas)
-router.route('/NewsMangas/update/:id').get(MangasController.updateManga)
+router.route('/NewsMangas/:id').get(MangasController.getupdateManga)
+router.route('/NewsMangas/:id').post(MangasController.postUpdateManga)
 router.route('/NewsMangas/delete/:id').post(MangasController.deleteMangas)
 
 
@@ -76,6 +77,7 @@ router.route('/KindOfMangas').get(MangasController.kindOfMangas)
 // router.route('/KindOfMangas/:kind').get(MangasController.kindOfMangas)
 
 router.route('/gestionUsers').get(userController.list)
+router.route('/edit/users/:id').post(userController.updateUser)
 
 router.route('/listAddMangas').get(MangasController.list)
 

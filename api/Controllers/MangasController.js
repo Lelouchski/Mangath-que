@@ -19,17 +19,22 @@ module.exports = {
 
         const mangas = await Manga.findAll({
             where: { title: { [Op.substring]: req.body.title } },
-            attributes: ['id', 'title', 'kind', 'author', 'volume', 'image_url'],
+            attributes: ['id', 'title', 'kind', 'author', 'volume', 'image_url','description'],
             raw: true
         })
-        res.render('NewsMangas', { mangas })
+        res.render('descriptionManga', { mangas })
     },
 
     newMangas: async (req, res) => {
         const mangas = await Manga.findAll({ raw: true }) // Récupération de tous les mangas depuis la base de données
         res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas
     },
-    updateManga: async (req, res) => {
+    getupdateManga : async (req, res) => {
+        const manga = await Manga.findByPk(req.params.id, { raw: true }) 
+        res.render('NewsMangas', { manga }) 
+      },
+    
+    postUpdateManga: async (req, res) => {
         await Manga.update({ // Mise à jour des données de l'article avec les données de la requête
             title: req.body.title,
             author: req.body.author,
@@ -37,10 +42,10 @@ module.exports = {
             volume: req.body.volume
         }, {
             where: {
-                id: req.params.id // Condition de mise à jour basée sur l'ID de l'article
+                id: req.params.id 
             }
         })
-        res.redirect('/NewsManga') // Redirection vers la liste des articles
+        res.redirect('/NewsMangas') 
     },
     deleteMangas: async (req, res) => {
         await Manga.destroy({
@@ -62,6 +67,7 @@ module.exports = {
             author: req.body.author,
             kind: req.body.kind,
             volume: req.body.volume,
+            description: req.body.description,
             image_url: req.file.path
 
         })
