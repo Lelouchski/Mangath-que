@@ -14,6 +14,14 @@ module.exports = {
         const mangas = await Manga.findAll({ raw: true }) // Récupération de tous les mangas depuis la base de données
         res.render('NewsMangas', { mangas}) // Rendu de la vue addMangas avec la liste des mangas
       },
+      deleteMangas: async (req, res) => {
+        await Manga.destroy({ 
+          where: {
+            id: req.params.id
+          }
+        })
+        res.redirect('/NewsMangas') // Redirection vers la liste des mangas
+      },
 
     addMangas: (req, res) => {
         res.render('addMangas')
@@ -60,7 +68,7 @@ module.exports = {
                 volume: req.body.volume,
 
             })
-            res.redirect('/') // Redirection vers la page d'accueil
+            res.redirect('NewsMangas') // Redirection vers la page d'accueil
         }
     }
 }

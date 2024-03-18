@@ -26,6 +26,8 @@ router.route('/ProposeNewManga').post(MangasController.postProposition)
 router.route('/watchlist').get(userController.watchlist)
 
 router.route('/NewsMangas').get(MangasController.newMangas)
+router.route('/NewsMangas/:id').post(MangasController.deleteMangas)
+
 
 router.route('/MostPopular').get(MangasController.mostPopular)
 

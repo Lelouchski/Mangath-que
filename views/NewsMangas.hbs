@@ -3,13 +3,18 @@
         {{#each mangas}}
         <div class="col-md-4 mb-3">
             <div class="card">
+                <img src="{{image_url}}" enctype="multipart/form-data" class="card-img-top" alt="Image du manga">{{image_url}}
                 <div class="card-body">
                     <h5 class="card-title"> {{title}}</h5>
                     <p class="card-text ">Auteur : {{author}}</p>
                     <p class="card-text ">Genre : {{kind}}</p>
                     <p class="card-text ">Nombre de tomes : {{volume}}</p>
-                    <p class=" card-img ">{{image_url}}</p>
                     <hr>
+                    {{#if @root.isAdmin}}
+                    <a href="/article/update/{{id}}" class="btn bg-success-subtle border-white">Modifier</a>
+                    <button data-bs-toggle="modal" data-bs-target="#Modal{{id}}"
+                        class="btn bg-danger-subtle border-white me-2 ">Supprimer</button>
+                    {{/if}}
                 </div>
             </div>
         </div>
@@ -26,7 +31,7 @@
                         Voulez-vous supprimer l'article définitivement? : {{title}}
                     </div>
                     <div class="modal-footer">
-                        <form action="/article/delete/{{id}}" method="post">
+                        <form action="/NewsMangas/{{id}}" method="post">
                             <button type="submit" class="btn bg-danger-subtle border-white">Supprimer
                                 définitivement</button>
                         </form>
@@ -35,27 +40,6 @@
             </div>
         </div>
         {{/if}}
-        <!-- Modal Supprimer a refaire -->
-        <div class="modal fade" id="Modal{{id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header bg-danger-subtle ">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Suppression d'article</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Voulez-vous supprimer l'article définitivement? : {{title}}
-                    </div>
-                    <div class="modal-footer">
-                        <form action="/article/delete/{{id}}" method="post">
-                            <button type="submit" class="btn bg-danger-subtle border-white">Supprimer
-                                définitivement</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         {{/each}}
         {{#unless mangas}}
         <div class="col-md-12">
