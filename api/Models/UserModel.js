@@ -1,4 +1,4 @@
-const { Sequelize,DataTypes } = require('sequelize')
+const { Sequelize, DataTypes } = require('sequelize')
 const config = require('../../config')
 const bcrypt = require('bcrypt')
 
@@ -24,6 +24,18 @@ const User = config.sequelize.define('users', {
   isVerified: {
     type: DataTypes.BOOLEAN,
     defaultValue: false
+  },
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+  isModerator: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+  isMember:{
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
   },
   password: {
     type: DataTypes.STRING,

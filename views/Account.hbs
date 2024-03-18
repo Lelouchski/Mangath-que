@@ -1,14 +1,130 @@
-<div class="d-flex justify-content-center text-warning ">
-    {{#if username}}
-    <h3 class="ms-5 mt-3 ">Bonjour {{username}}</h3>
-    {{/if}}
-</div>
-<div class="container">
+<div class="container mt-5">
     <div class="row">
-        <div class="col">
+
+        <div class="col-md-3">
+            <ul class="list-group">
+                <li class="list-group-item d-flex ">
+                    <img src="/assets/images/account.png" alt="" id="iconAccountPage">
+                    {{#if username}}
+                    <p class="ms-4">Bonjour {{username}}</p>
+                    {{/if}}
+                </li>
+                <li id="list-account" class="list-group-item ">
+                    <a href="#" class="text-decoration-none">Modifier son mot de passe</a>
+                </li>
+                <li id="list-account" class="list-group-item ">
+                    <a href="#" class="text-decoration-none">Modifier son adresse mail</a>
+                </li>
+                <li id="list-account" class="list-group-item ">
+                    <a href="/ProposeNewManga" class="text-decoration-none">Proposer un nouveau manga</a>
+                </li>
+                <li id="list-account" class="list-group-item " data-bs-toggle="modal"
+                    data-bs-target="#editProfileModal">
+                    <a href="#" class="text-decoration-none">Modifier sa photo de profil</a>
+                </li>
+
+                <!-- Modal pour modifier la photo de profil -->
+                <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="modal-title" id="editProfileModalLabel">Modifier sa photo de profil</h5>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Première ligne d'images -->
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                </div>
+                                <!-- Deuxième ligne d'images -->
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                </div>
+                                <!-- Troisième ligne d'images -->
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                </div>
+                                <!-- Quatrième ligne d'images -->
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                                            class="card-img-top img-fluid rounded shadow-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Annuler</button>
+                                <button type="button" class="btn btn-danger">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-9">
             <div class="py-4 px-4">
-                <div class="d-flex align-items-center mb-3">
-                    <h4 class="mb-0 text-center flex-grow-1">Mangas déjà lus</h4>
+                <div class="profile-heading mb-3">
+                    <h4 class="mb-0 text-center">Mangas déjà lus</h4>
                 </div>
                 <hr>
                 <div class="row">
@@ -24,49 +140,46 @@
                                 class="card-img-top img-fluid rounded shadow-sm">
                         </div>
                     </div>
-                    <div class="col-lg-6 pr-lg-1 mb-2">
+                    <div class="col-lg-6 mb-2 pl-lg-1">
                         <div class="card border-2 border-white">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-5.jpg" alt=""
+                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-4.jpg" alt=""
                                 class="card-img-top img-fluid rounded shadow-sm">
                         </div>
                     </div>
-                    <div class="col-lg-6 pl-lg-1">
+                    <div class="col-lg-6 mb-2 pl-lg-1">
                         <div class="card border-2 border-white">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-6.jpg" alt=""
+                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-4.jpg" alt=""
                                 class="card-img-top img-fluid rounded shadow-sm">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
+
             <div class="py-4 px-4">
-                <div class="d-flex align-items-center mb-3">
-                    <h4 class="mb-0 text-center flex-grow-1">Mangas favoris</h4>
+                <div class="profile-heading mb-3">
+                    <h4 class="mb-0 text-center">Mangas favoris</h4>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-lg-6 mb-2 pr-lg-1">
                         <div class="card border-2 border-white">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
+                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-5.jpg" alt=""
                                 class="card-img-top img-fluid rounded shadow-sm">
                         </div>
                     </div>
                     <div class="col-lg-6 mb-2 pl-lg-1">
                         <div class="card border-2 border-white">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-4.jpg" alt=""
+                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-6.jpg" alt=""
                                 class="card-img-top img-fluid rounded shadow-sm">
                         </div>
                     </div>
-                    <div class="col-lg-6 pr-lg-1 mb-2">
+                    <div class="col-lg-6 mb-2 pl-lg-1">
                         <div class="card border-2 border-white">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-5.jpg" alt=""
+                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-6.jpg" alt=""
                                 class="card-img-top img-fluid rounded shadow-sm">
                         </div>
                     </div>
-                    <div class="col-lg-6 pl-lg-1">
+                    <div class="col-lg-6 mb-2 pl-lg-1">
                         <div class="card border-2 border-white">
                             <img src="https://bootstrapious.com/i/snippets/sn-profile/img-6.jpg" alt=""
                                 class="card-img-top img-fluid rounded shadow-sm">

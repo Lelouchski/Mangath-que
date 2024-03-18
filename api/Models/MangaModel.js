@@ -14,8 +14,9 @@ const Manga = config.sequelize.define('mangas', {
         allowNull: false,
         unique: true,
     },
+    
     kind: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER, 
         allowNull: false,
     },
     author: {
@@ -25,7 +26,11 @@ const Manga = config.sequelize.define('mangas', {
     volume: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    }
+    },
+    image_url: {
+        type: DataTypes.STRING, 
+        allowNull: true 
+    },
 }
 )
 
