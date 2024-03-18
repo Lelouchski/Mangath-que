@@ -15,18 +15,21 @@ module.exports = {
         res.render('MostPopular')
     },
     search: async (req, res) => {
+
         const mangas = await Manga.findAll({
-           where: {
-             [Op.or]: [
-               { title: { [Op.substring]: req.body.title } },
-               { kind: { [Op.substring]: req.body.kind } }
-             ]
-           },
-           raw: true
-        });
-        res.render('NewsMangas', { mangas})
+            where: {
+                [Op.or]: [
+                    { title: { [Op.substring]: req.body.title } },
+                    { kind: { [Op.substring]: req.body.kind } }
+                ]
+
+            },
+            attributes: ['id', 'title', 'kind', 'author', 'volume', 'image_url'], 
+            raw: true
+        })
+        res.render('NewsMangas', { mangas })
     },
-    
+
     newMangas: async (req, res) => {
         const mangas = await Manga.findAll({ raw: true }) // Récupération de tous les mangas depuis la base de données
         res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas
