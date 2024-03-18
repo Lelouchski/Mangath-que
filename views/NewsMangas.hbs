@@ -2,9 +2,9 @@
     <div class="row mt-5">
         {{#each mangas}}
         <div class="col-md-4 mb-3">
-            <div class="card">
-                <img src="{{image_url}}" class="card-img-top" alt="Image du manga">
-                <div class="card-overlay d-grid text-center w-100 h-100 align-items-center">
+            <div class="card w-75 h-75">
+                <img src="{{image_url}}" class="img-fluid card" alt="Image du manga">
+                <div class="card-overlay position-absolute w-100 h-100 d-grid text-center align-items-center">
                     <div class="overlay-content">
                         <h5 class="card-title">{{title}}</h5>
                         <p class="card-text">Auteur: {{author}}</p>
@@ -14,27 +14,57 @@
                 </div>
             </div>
             {{#if @root.isAdmin}}
-            <a href="/article/update/{{id}}" class="btn bg-success-subtle border-white">Modifier</a>
-            <button data-bs-toggle="modal" data-bs-target="#Modal{{id}}"
-                class="btn bg-danger-subtle border-white me-2 ">Supprimer</button>
+            <a href="/NewsMangas/update/{{id}}" class="btn bg-success-subtle border-white">Modifier</a>
+            <button data-bs-toggle="modal" data-bs-target="#deleteMangaModal{{id}}"
+                class="btn bg-danger-subtle border-white me-2">Supprimer</button>
             {{/if}}
         </div>
-        <!-- Modal -->
-        {{#if @root.isAdmin}}
-        <div class="modal fade" id="Modal{{id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <!-- Modal Modifier -->
+        <div class="modal fade" id="editMangaModal{{id}}" tabindex="-1" aria-labelledby="editMangaModalLabel{{id}}"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header bg-danger-subtle ">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Suppression d'article</h1>
+                    <div class="modal-header bg-danger-subtle">
+                        <h5 class="modal-title" id="editMangaModalLabel{{id}}">Modifier le manga</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/NewsMangas/update/{{id}}" method="post">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="editedContent" class="form-label">Nouveau contenu :</label>
+                                <textarea class="form-control" id="editedContent" name="content" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-danger-subtle border-white"
+                                data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn bg-warning-subtle border-white">Enregistrer les
+                                modifications
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Supprimer -->
+        {{#if @root.isAdmin}}
+        <div class="modal fade" id="deleteMangaModal{{id}}" tabindex="-1" aria-labelledby="deleteMangaModalLabel{{id}}"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger-subtle">
+                        <h5 class="modal-title" id="deleteMangaModalLabel{{id}}">Supprimer le manga</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Voulez-vous supprimer l'article définitivement? : {{title}}
+                        Voulez-vous supprimer ce manga définitivement? : {{title}}
                     </div>
                     <div class="modal-footer">
-                        <form action="/NewsMangas/{{id}}" method="post">
-                            <button type="submit" class="btn bg-danger-subtle border-white">Supprimer
-                                définitivement</button>
+                        <form action="/NewsMangas/delete/{{id}}" method="post">
+                            <button type="submit" class="btn bg-danger-subtle border-white">Supprimer définitivement
+                            </button>
                         </form>
                     </div>
                 </div>

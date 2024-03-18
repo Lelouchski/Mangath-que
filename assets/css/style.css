@@ -25,18 +25,15 @@ ul.list-group li#list-account.list-group-item a{
     text-decoration: none,
 }
 .card-overlay {
-    position: absolute;
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
     transition: opacity 0.3s ease;
-    
 }
 
 .card:hover .card-overlay {
     opacity: 1;
 }
-
-.overlay-text {
-    color: white;
-    font-size: 18px;
+.card img {
+    height: 100%; 
+    width: auto; 
 }
