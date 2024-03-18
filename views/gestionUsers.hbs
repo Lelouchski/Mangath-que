@@ -3,7 +3,8 @@
         <tr>
             <th scope="col">Nom d'utilisateur</th>
             <th scope="col">Email</th>
-            <th scope="col">Vérification</th>
+            <th scope="col">Modérateur</th>
+            <th scope="col">Membre</th>
             <th scope="col">Supprimer</th>
         </tr>
     </thead>
@@ -12,9 +13,8 @@
         <tr>
             <th scope="row">{{username}}</th>
             <td>{{email}}</td>
-            <td>{{#if isVerified}}True
-                {{else}}False{{/if}}
-            </td>
+            <td>{{isModerator}}</td>
+            <td>{{isMember}}</td>
             <td><button type="button" class="btn bg-danger-subtle border-white" data-bs-toggle="modal"
                     data-bs-target="#deleteUserModal{{this.id}}">
                     Supprimer</button></td>

@@ -33,6 +33,10 @@ const User = config.sequelize.define('users', {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   },
+  isMember:{
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
+  },
   password: {
     type: DataTypes.STRING,
     allowNull: false,
