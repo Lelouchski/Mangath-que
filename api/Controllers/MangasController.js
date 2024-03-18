@@ -19,7 +19,7 @@ module.exports = {
 
         const mangas = await Manga.findAll({
             where: { title: { [Op.substring]: req.body.title } },
-            attributes: ['id', 'title', 'kind', 'author', 'volume', 'image_url','description'],
+            attributes: ['id', 'title', 'kind', 'author', 'volume', 'image_url', 'description'],
             raw: true
         })
         res.render('descriptionManga', { mangas })
@@ -29,11 +29,11 @@ module.exports = {
         const mangas = await Manga.findAll({ raw: true }) // Récupération de tous les mangas depuis la base de données
         res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas
     },
-    getupdateManga : async (req, res) => {
-        const manga = await Manga.findByPk(req.params.id, { raw: true }) 
-        res.render('NewsMangas', { manga }) 
-      },
-    
+    getupdateManga: async (req, res) => {
+        const manga = await Manga.findByPk(req.params.id, { raw: true })
+        res.render('NewsMangas', { manga })
+    },
+
     postUpdateManga: async (req, res) => {
         await Manga.update({ // Mise à jour des données de l'article avec les données de la requête
             title: req.body.title,
@@ -42,10 +42,10 @@ module.exports = {
             volume: req.body.volume
         }, {
             where: {
-                id: req.params.id 
+                id: req.params.id
             }
         })
-        res.redirect('/NewsMangas') 
+        res.redirect('/NewsMangas')
     },
     deleteMangas: async (req, res) => {
         await Manga.destroy({
@@ -88,35 +88,28 @@ module.exports = {
         }
     },
 
-    list: async (req, res) => {
-        const mangas = await Manga.findAll({ raw: true }) // Récupération de tous les mangas depuis la base de données
-        res.render('listAddMangas', { mangas, layout: 'admin' })// Rendu de la vue listMangas avec la liste des utilisateurs
-    },
-    getProposition: (req, res) => {
-        res.render('ProposeNewManga')
-    },
-    postProposition: async (req, res) => {
-        const result = validationResult(req) // Validation des données de la requête
-        const manga = await Manga.findOne({
-            where: {
-                title: req.body.title
+    // listAddMangas: async (req, res) => {
+    //         const mangas = await Manga.findAll({
+    //             where: {
+    //                 isAdmin: false 
+    //             },
+    //             raw: true
+    //         })
+    
+    //         res.render('listAddMangas', { mangas, layout: 'admin' })
+        
+    //     },
+        getProposition: (req, res) => {
+            res.render('ProposeNewManga')
+        },
+            postProposition: async (req, res) => {
+                const result = validationResult(req) // Validation des données de la requête
+                const manga = await Manga.findOne({
+                    where: {
+                        title: req.body.title
+                    }
+                })
+
+                res.redirect('Account', { manga }) // Redirection vers la page d'accueil
             }
-        })
-
-        if (!result.isEmpty()) {
-            // Rendu de la vue ProposeNewMangas avec les données saisies et les erreurs de validation
-            res.render('ProposeNewMangas', { title, 'error': result.errors })
-
-        } else { // Si aucune erreur de validation
-            // Création d'un nouveau manga avec les données saisies
-            Manga.create({
-                title: req.body.title,
-                author: req.body.author,
-                kind: req.body.kind,
-                volume: req.body.volume,
-
-            })
-            res.redirect('NewsMangas') // Redirection vers la page d'accueil
-        }
     }
-}

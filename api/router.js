@@ -79,7 +79,7 @@ router.route('/KindOfMangas').get(MangasController.kindOfMangas)
 router.route('/gestionUsers').get(userController.list)
 router.route('/edit/users/:id').post(userController.updateUser)
 
-router.route('/listAddMangas').get(MangasController.list)
+// router.route('/listAddMangas').get(MangasController.listAddMangas)
 
 router.route('/addMangas').get(MangasController.addMangas)
 router.route('/addMangas').post(upload.single('image_url'), MangasController.postAddMangas)
