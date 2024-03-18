@@ -9,6 +9,7 @@ const { Op } = require("sequelize") // Importation de l'opérateur d'égalité S
 
 
 
+
 module.exports = {
 
     mostPopular: (req, res) => {
@@ -17,14 +18,8 @@ module.exports = {
     search: async (req, res) => {
 
         const mangas = await Manga.findAll({
-            where: {
-                [Op.or]: [
-                    { title: { [Op.substring]: req.body.title } },
-                    { kind: { [Op.substring]: req.body.kind } }
-                ]
-
-            },
-            attributes: ['id', 'title', 'kind', 'author', 'volume', 'image_url'], 
+            where: { title: { [Op.substring]: req.body.title } },
+            attributes: ['id', 'title', 'kind', 'author', 'volume', 'image_url'],
             raw: true
         })
         res.render('NewsMangas', { mangas })

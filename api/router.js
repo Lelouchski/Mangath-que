@@ -45,6 +45,7 @@ const upload = multer({
 router.route('/NewsMangas').post(MangasController.search)
 router.route('/').get(homeController.get)
 
+
 router.route('/Login').get(userController.get)
 
 router.route('/Inscription').get(userController.inscription)
