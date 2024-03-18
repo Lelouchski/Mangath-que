@@ -10,6 +10,8 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store) // Co
 const Handlebars = require("handlebars")
 const MomentHandler = require("handlebars.moment") // Handlebars.moment est un wrapper pour Handlebars pour formater les dates et heures
 MomentHandler.registerHelpers(Handlebars) // Enregistrement des helpers Handlebars fournis par Handlebars.moment
+const multer = require('multer')
+
 
 
 app.engine('hbs', engine({

@@ -4,6 +4,10 @@ const { body, param } = require('express-validator')
 const homeController = require('./Controllers/HomeController')
 const userController = require('./Controllers/UserController')
 const MangasController = require('./Controllers/MangasController')
+const multer = require('multer')
+const upload = multer({ dest: './assets/images'})
+
+
 
 router.route('/').get(homeController.get)
 
@@ -40,12 +44,7 @@ router.route('/gestionUsers').get(userController.list)
 router.route('/listAddMangas').get(MangasController.list)
 
 router.route('/addMangas').get(MangasController.addMangas)
-
-
-
-
-
-
+router.route('/addMangas').post(upload.single('image_url'), MangasController.postAddMangas);
 
 
 module.exports = router

@@ -3,20 +3,21 @@
         {{#each mangas}}
         <div class="col-md-4 mb-3">
             <div class="card">
-                <img src="{{image_url}}" enctype="multipart/form-data" class="card-img-top" alt="Image du manga">{{image_url}}
-                <div class="card-body">
-                    <h5 class="card-title"> {{title}}</h5>
-                    <p class="card-text ">Auteur : {{author}}</p>
-                    <p class="card-text ">Genre : {{kind}}</p>
-                    <p class="card-text ">Nombre de tomes : {{volume}}</p>
-                    <hr>
-                    {{#if @root.isAdmin}}
-                    <a href="/article/update/{{id}}" class="btn bg-success-subtle border-white">Modifier</a>
-                    <button data-bs-toggle="modal" data-bs-target="#Modal{{id}}"
-                        class="btn bg-danger-subtle border-white me-2 ">Supprimer</button>
-                    {{/if}}
+                <img src="{{image_url}}" class="card-img-top" alt="Image du manga">
+                <div class="card-overlay d-grid text-center w-100 h-100 align-items-center">
+                    <div class="overlay-content">
+                        <h5 class="card-title">{{title}}</h5>
+                        <p class="card-text">Auteur: {{author}}</p>
+                        <p class="card-text">Genre: {{kind}}</p>
+                        <p class="card-text">Nombre de tomes: {{volume}}</p>
+                    </div>
                 </div>
             </div>
+            {{#if @root.isAdmin}}
+            <a href="/article/update/{{id}}" class="btn bg-success-subtle border-white">Modifier</a>
+            <button data-bs-toggle="modal" data-bs-target="#Modal{{id}}"
+                class="btn bg-danger-subtle border-white me-2 ">Supprimer</button>
+            {{/if}}
         </div>
         <!-- Modal -->
         {{#if @root.isAdmin}}

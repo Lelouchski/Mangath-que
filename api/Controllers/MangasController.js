@@ -4,6 +4,8 @@ const Manga = require('../Models/MangaModel')
 const Author = require('../Models/AuthorModel')
 const Kind = require('../Models/KindModel')
 const Status = require('../Models/StatusModel')
+const multer = require('multer')
+const upload = multer({ dest: './public/data/uploads/'})
 
 module.exports = {
 
@@ -25,6 +27,20 @@ module.exports = {
 
     addMangas: (req, res) => {
         res.render('addMangas')
+    },
+
+    postAddMangas : async (req, res) => {
+
+           await Manga.create({
+                title: req.body.title,
+                author: req.body.author,
+                kind: req.body.kind,
+                volume: req.body.volume,
+                image_url: req.file.path
+
+            })
+            res.redirect('NewsMangas') // Redirection vers la page d'accueil
+        
     },
 
     kindOfMangas: async (req, res) => {
