@@ -97,8 +97,8 @@ module.exports = {
             }],
             raw: true
         });
-        console.log(mangas);
-        res.render('listAddMangas', { mangas, layout: 'admin' });
+        console.log(mangas)
+        res.render('listAddMangas', { mangas, layout: 'admin' })
 
     },
 
@@ -145,8 +145,8 @@ module.exports = {
         await Manga.update(
             { isVerified: true }, 
             { where: { id: req.params.id } } 
-        );
-        res.redirect('/NewsMangas');
+        )
+        res.redirect('/NewsMangas')
     }
 
 }
