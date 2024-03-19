@@ -14,7 +14,23 @@ MomentHandler.registerHelpers(Handlebars) // Enregistrement des helpers Handleba
 
 
 app.engine('hbs', engine({
-    extname: 'hbs'}))
+    extname: 'hbs', // Extension des fichiers de modèle
+    helpers: {
+        // Helper personnalisé permettant de gérer les conditions dans les templates Handlebars
+        ifCond: function(v1, v2, options){
+            if (options && typeof options.fn === 'function' && typeof options.inverse === 'function') {
+                if (v1 === v2) {
+                    return options.fn(this); // Exécute le bloc de code conditionnel si la condition est vraie
+                } else {
+                    return options.inverse(this); // Exécute le bloc de code alternatif si la condition est fausse
+                }
+            } else {
+                console.error("Les options ne sont pas correctement définies.");
+                return ""; // Retourne une chaîne vide si les options ne sont pas correctement définies
+            }
+        }
+    }
+}));
 
 app.set('view engine', 'hbs')
 

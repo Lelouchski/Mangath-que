@@ -1,5 +1,8 @@
-const { Sequelize,DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize')
 const config = require('../../config')
+
+
+const Author = require('../Models/AuthorModel');
 
 const Manga = config.sequelize.define('mangas', {
     
@@ -14,7 +17,6 @@ const Manga = config.sequelize.define('mangas', {
         allowNull: false,
         unique: true,
     },
-    
     kind: {
         type: DataTypes.STRING, 
         allowNull: false,
@@ -30,8 +32,13 @@ const Manga = config.sequelize.define('mangas', {
     image_url: {
         type: DataTypes.STRING, 
         allowNull: true 
-    },
+    }
 }
 )
+
+
+
+Author.hasOne(Manga)
+Manga.belongsTo(Author)
 
 module.exports = Manga
