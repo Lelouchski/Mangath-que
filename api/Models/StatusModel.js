@@ -27,8 +27,10 @@ const Status = config.sequelize.define('status', {
 
 User.belongsToMany(Manga, {through: Follow})
 Manga.belongsToMany(User, {through: Follow})
+
 Follow.belongsTo(User)
 Follow.belongsTo(Status)
+
 User.hasMany(Follow)
 Status.hasMany(Follow)
 

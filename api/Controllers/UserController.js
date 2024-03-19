@@ -6,6 +6,8 @@ const Manga = require('../Models/MangaModel')
 const Author = require('../Models/AuthorModel')
 const Kind = require('../Models/KindModel')
 const Status = require('../Models/StatusModel')
+const Follow = require('../Models/followModel')
+
 
 module.exports = {
 
