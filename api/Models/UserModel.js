@@ -1,6 +1,8 @@
-const { Sequelize, DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize')
 const config = require('../../config')
 const bcrypt = require('bcrypt')
+
+
 
 const User = config.sequelize.define('users', {
   id: {
@@ -52,5 +54,8 @@ const User = config.sequelize.define('users', {
   }
 
 )
+
+
+
 
 module.exports = User

@@ -46,5 +46,6 @@ router.route('/addMangas').get(MangasController.addMangas)
 
 
 
+
 module.exports = router
 
