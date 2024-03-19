@@ -99,7 +99,7 @@ module.exports = {
     },
     updateUser: async (req, res) => {
         // Recherche de l'utilisateur à mettre à jour
-        const user = await User.findByPk(req.params.id);
+        const user = await User.findByPk(req.params.id)
 
         // Mise à jour des rôles de l'utilisateur
         await user.update({
