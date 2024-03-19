@@ -1,5 +1,8 @@
-const { Sequelize,DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize')
 const config = require('../../config')
+const Manga = require('./MangaModel')
+
+
 
 const Kind = config.sequelize.define('kinds', {
   
@@ -9,29 +12,15 @@ const Kind = config.sequelize.define('kinds', {
     autoIncrement: true,
 
   },
-  Shonen: {
-    type: DataTypes.STRING,
-    allowNull: false,
-
-  },
-  Seinen: {
-    type: DataTypes.STRING,
-    allowNull: false,
-
-  },
-  Seijin: {
-    type: DataTypes.STRING,
-    defaultValue: false
-  },
-  Josei: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  Kowai: {
+  Name: {
     type: DataTypes.STRING,
     allowNull: false,
   }
+  
 }
 )
+Kind.hasOne(Manga)
+
+Manga.belongsTo(Kind)
 
 module.exports = Kind

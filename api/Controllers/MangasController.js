@@ -87,29 +87,47 @@ module.exports = {
             res.status(500).json({ error: ' Error' })
         }
     },
+    getListAddMangas: async (req, res) => {
+        const mangas = await Manga.findAll({
+            include: [{
+                model: User,
+                where: { isAdmin: false, isMember: true }
+            }],
+            raw: true
 
-    // listAddMangas: async (req, res) => {
-    //         const mangas = await Manga.findAll({
-    //             where: {
-    //                 isAdmin: false 
-    //             },
-    //             raw: true
-    //         })
-    
-    //         res.render('listAddMangas', { mangas, layout: 'admin' })
-        
-    //     },
-        getProposition: (req, res) => {
-            res.render('ProposeNewManga')
-        },
-            postProposition: async (req, res) => {
-                const result = validationResult(req) // Validation des données de la requête
-                const manga = await Manga.findOne({
-                    where: {
-                        title: req.body.title
-                    }
-                })
+        })
+        console.log(mangas)
+        res.render('listAddMangas', { mangas, layout: 'admin' })
 
-                res.redirect('Account', { manga }) // Redirection vers la page d'accueil
-            }
+    },
+
+    // postListAddMangas: async (req, res) => {
+    //     const mangas = await Manga.findAll({
+    //         include: [{
+    //             model: User,
+    //             where: { isAdmin: false }
+    //         }],
+    //         raw: true
+
+    //     })
+
+    //     res.render('Account', { mangas, layout: 'admin' })
+
+    // },
+    getProposition: (req, res) => {
+        res.render('ProposeNewManga')
+    },
+    postProposition: async (req, res) => {
+
+        await Manga.create({
+            title: req.body.title,
+            author: req.body.author,
+            kind: req.body.kind,
+            volume: req.body.volume,
+            description: req.body.description
+        })
+
+        res.redirect('Account')
+
     }
+}

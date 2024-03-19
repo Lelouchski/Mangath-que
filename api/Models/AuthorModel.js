@@ -1,4 +1,4 @@
-const { Sequelize,DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize')
 const config = require('../../config')
 
 const Author = config.sequelize.define('authors', {
