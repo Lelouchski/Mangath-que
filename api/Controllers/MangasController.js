@@ -19,7 +19,7 @@ module.exports = {
 
         const mangas = await Manga.findAll({
             where: { title: { [Op.substring]: req.body.title } },
-            attributes: ['id', 'title', 'kind', 'author', 'volume', 'image_url', 'description'],
+            attributes: ['title'],
             raw: true
         })
         res.render('descriptionManga', { mangas })
@@ -69,10 +69,9 @@ module.exports = {
             volume: req.body.volume,
             description: req.body.description,
             image_url: req.file.path
-
-        })
-        res.redirect('NewsMangas') // Redirection vers la page 
-
+        }
+        )
+        res.redirect('/NewsMangas') // Redirection vers la page 
     },
 
     kindOfMangas: async (req, res) => {
@@ -89,15 +88,17 @@ module.exports = {
     },
     getListAddMangas: async (req, res) => {
         const mangas = await Manga.findAll({
+            where: { isVerified: false },
             include: [{
                 model: User,
-                where: { isAdmin: false, isMember: true }
+                model: Kind,
+                model: Author
+                // where: { isAdmin: false, isMember: true } // Commentez ou retirez cette ligne temporairement
             }],
             raw: true
-
-        })
-        console.log(mangas)
-        res.render('listAddMangas', { mangas, layout: 'admin' })
+        });
+        console.log(mangas);
+        res.render('listAddMangas', { mangas, layout: 'admin' });
 
     },
 
@@ -124,10 +125,28 @@ module.exports = {
             author: req.body.author,
             kind: req.body.kind,
             volume: req.body.volume,
-            description: req.body.description
+            description: req.body.description,
+            image_url: req.file.path,
         })
 
-        res.redirect('Account')
+        res.redirect('/Account')
 
+    },
+
+    refuseMangaList: async (req, res) => {
+        await Manga.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.redirect('/listAddMangas') // Redirection vers la liste des mangas
+    },
+    acceptMangaList: async (req, res) => {
+        await Manga.update(
+            { isVerified: true }, 
+            { where: { id: req.params.id } } 
+        );
+        res.redirect('/NewsMangas');
     }
+
 }

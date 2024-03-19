@@ -4,7 +4,7 @@
             Proposer un nouveau manga
         </div>
         <div class="card-body">
-            <form action="/ProposeNewManga" method="post">
+            <form action="/ProposeNewManga" enctype="multipart/form-data" method="post">
                 <div class="mb-3">
                     <label for="title" class="form-label">Titre</label>
                     <input type="text" class="form-control" id="title" name="title">
@@ -20,6 +20,10 @@
                 <div class="mb-3">
                     <label for="volume" class="form-label">Nombre de tomes</label>
                     <input type="number" class="form-control" id="volume" name="volume">
+                </div>
+                <div class="mb-3">
+                    <label for="image_url" class="form-label">Importer une image</label>
+                    <input type="file" class="form-control" id="image_url" name="image_url">
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>

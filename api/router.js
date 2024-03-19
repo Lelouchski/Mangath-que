@@ -66,7 +66,7 @@ router.route('/Account/update/:id')
 router.route('/logout').get(userController.logout)
 
 router.route('/ProposeNewManga').get(MangasController.getProposition)
-router.route('/ProposeNewManga').post(MangasController.postProposition)
+router.route('/ProposeNewManga').post(upload.single('image_url'), MangasController.postProposition)
 
 
 router.route('/watchlist').get(userController.watchlist)
@@ -87,7 +87,12 @@ router.route('/gestionUsers').get(userController.list)
 router.route('/edit/users/:id').post(userController.updateUser)
 
 router.route('/listAddMangas').get(MangasController.getListAddMangas)
+router.route('/refuse/manga/:id').post(MangasController.refuseMangaList)
+router.route('/accept/manga/:id').post(MangasController.acceptMangaList)
+
+
 // router.route('/listAddMangas').post(MangasController.postListAddMangas)
+/delete/manga/
 
 router.route('/addMangas').get(MangasController.addMangas)
 router.route('/addMangas').post(upload.single('image_url'), MangasController.postAddMangas)
