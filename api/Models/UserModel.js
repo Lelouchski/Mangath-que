@@ -1,4 +1,4 @@
-const {  DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize')
 const config = require('../../config')
 const bcrypt = require('bcrypt')
 
@@ -33,7 +33,7 @@ const User = config.sequelize.define('users', {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   },
-  isMember:{
+  isMember: {
     type: DataTypes.BOOLEAN,
     defaultValue: true
   },
@@ -54,7 +54,52 @@ const User = config.sequelize.define('users', {
       }
     }
   }
-
 )
+
+User.sync().then(
+  () => {
+    User.findOrCreate({
+      where: {
+        email: 'admin@admin.fr'
+      },
+      defaults: {
+        email: 'admin@admin.fr',
+        username: 'admin',
+        isVerified: 1,
+        isAdmin: 1,
+        isModerator: 0,
+        isMember: 1,
+        password: 'admin'
+      }
+    })
+    User.findOrCreate({
+      where: {
+        email: 'modo1@modo.fr'
+      },
+      defaults: {
+        email: 'modo1@modo.fr',
+        username: 'modo1',
+        isVerified: 1,
+        isAdmin: 0,
+        isModerator: 1,
+        isMember: 1,
+        password: 'modo1'
+      }
+    })
+    User.findOrCreate({
+      where: {
+        email: 'user1'
+      },
+      defaults: {
+        email: 'user1@user.fr',
+        username: 'user1',
+        isVerified: 1,
+        isAdmin: 0,
+        isModerator: 0,
+        isMember: 1,
+        password: 'user1'
+      }
+    })
+  })
 
 module.exports = User
