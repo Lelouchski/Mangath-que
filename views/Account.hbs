@@ -9,10 +9,12 @@
                     <p class="ms-4">Bonjour {{username}}</p>
                     {{/if}}
                 </li>
-                <li id="list-account" class="list-group-item ">
+               <li id="list-account" class="list-group-item" data-bs-toggle="modal"
+                    data-bs-target="#changePasswordModal">
                     <a href="#" class="text-decoration-none">Modifier son mot de passe</a>
                 </li>
-                <li id="list-account" class="list-group-item ">
+                <li id="list-account" class="list-group-item" data-bs-toggle="modal"
+                    data-bs-target="#changeEmailModal">
                     <a href="#" class="text-decoration-none">Modifier son adresse mail</a>
                 </li>
                 <li id="list-account" class="list-group-item ">
@@ -187,6 +189,63 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">Modifier le mot de passe</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/Account/update/{{userId}}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                       <label for="oldPassword" class="form-label">Rentrer votre ancien mot de passe</label>
+                        <input name="oldPassword" type="password" class="form-control" id="oldPassword">
+                    </div>
+                     <div class="mb-3">
+                        <label for="newPassword" class="form-label">Rentrer votre nouveau mot de passe</label>
+                        <input name="newPassword" type="password" class="form-control" id="newPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confNewPassword" class="form-label">Confirmer le nouveau mot de passe</label>
+                        <input name="confNewPassword" type="password" class="form-control" id="confNewPassword">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="changeEmailModal" tabindex="-1" aria-labelledby="changeEmailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeEmailModalLabel">Modifier l'adresse e-mail</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="changeEmailForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="newEmail" class="form-label">Nouvelle adresse e-mail</label>
+                        <input type="email" class="form-control" id="newEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmNewEmail" class="form-label">Confirmer la nouvelle adresse e-mail</label>
+                        <input type="email" class="form-control" id="confirmNewEmail" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

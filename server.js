@@ -1,3 +1,4 @@
+
 const express = require('express') 
 const { engine, ExpressHandlebars } = require('express-handlebars') 
 const router = require('./api/router') 
@@ -55,6 +56,7 @@ app.use(session({
 app.use('*', (req, res, next) => {
     if (req.session.username) { // Vérification si un utilisateur est connecté
         res.locals.username = req.session.username // Variable locale contenant le nom d'utilisateur
+        res.locals.userId = req.session.userId
         if (req.session.isAdmin) { // Vérification si l'utilisateur est administrateur
             res.locals.isAdmin = req.session.isAdmin // Variable locale indiquant si l'utilisateur est administrateur
         }

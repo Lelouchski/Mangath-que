@@ -56,6 +56,13 @@ router.route('/Account').post(userController.login)
 
 router.route('/Account').get(userController.account)
 
+router.route('/Account/update/:id')
+    .get(userController.getUpdate)
+    .post([
+        param('id').isInt().withMessage('L\'ID doit être un entier positif'),
+        body('password').isEmpty().withMessage('L\'adresse e-mail doit être valide').escape()
+    ],userController.postUpdate) 
+
 router.route('/logout').get(userController.logout)
 
 router.route('/ProposeNewManga').get(MangasController.getProposition)
@@ -88,4 +95,3 @@ router.route('/addMangas').post(upload.single('image_url'), MangasController.pos
 
 
 module.exports = router
-

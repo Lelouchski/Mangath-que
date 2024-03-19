@@ -88,7 +88,7 @@ User.sync().then(
     })
     User.findOrCreate({
       where: {
-        email: 'user1'
+        email: 'user1@user.fr'
       },
       defaults: {
         email: 'user1@user.fr',
