@@ -3,25 +3,26 @@
         {{#each mangas}}
         {{#if isVerified}}
         <div class="col-md-4 mb-3">
-            <div class="card" style="width: 18rem;">
-                <img src="/{{image_url}}" class="card-img-top" alt="Image du manga">
+            <div class="card" style="width: 16rem;">
+                <img src="/{{image_url}}" class="card custom-img" alt="Image du manga">
                 <div
                     class="card-overlay position-absolute top-0 start-0 bottom-0 end-0 d-flex justify-content-center align-items-center">
                     <div class="overlay-content text-center">
+                        <a href="/descriptionManga/{{this.id}}" class="stretched-link"></a>
                         <h5 class="card-title">{{title}}</h5>
                         <p class="card-text">Auteur: {{authorId}}</p>
                         <p class="card-text">Genre: {{kindId}}</p>
                         <p class="card-text">Nombre de tomes: {{volume}}</p>
                     </div>
                 </div>
-                {{#if @root.isAdmin}}
-                <button data-bs-toggle="modal" data-bs-target="#editMangaModal{{id}}"
-                    class="btn bg-warning-subtle border-white me-2">Modifier</button>
-                <button data-bs-toggle="modal" data-bs-target="#deleteMangaModal{{id}}"
-                    class="btn bg-danger-subtle border-white me-2">Supprimer</button>
-                {{/if}}
-                {{/if}}
             </div>
+            {{#if @root.isAdmin}}
+            <button data-bs-toggle="modal" data-bs-target="#editMangaModal{{id}}"
+                class="btn bg-warning-subtle border-white me-2">Modifier</button>
+            <button data-bs-toggle="modal" data-bs-target="#deleteMangaModal{{id}}"
+                class="btn bg-danger-subtle border-white me-2">Supprimer</button>
+            {{/if}}
+            {{/if}}
         </div>
 
         <!-- Modal Modifier -->

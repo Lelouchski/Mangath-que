@@ -24,7 +24,11 @@ module.exports = {
         })
         res.render('descriptionManga', { mangas })
     },
-
+    goDescription: async (req, res) => {
+        const manga = await Manga.findByPk(req.params.id, { raw: true })
+        res.render('descriptionManga',{manga})
+    }, //A VOIRRRRRRRRRR !!!!!!!! (la recup de données sur NewsMangas aussi)
+    
     newMangas: async (req, res) => {
         const mangas = await Manga.findAll({ raw: true }) // Récupération de tous les mangas depuis la base de données
         res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas

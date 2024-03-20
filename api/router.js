@@ -43,6 +43,8 @@ const upload = multer({
 })
 
 router.route('/descriptionManga').post(MangasController.search)
+router.route('/descriptionManga/:id').get(MangasController.goDescription)
+
 router.route('/').get(homeController.get)
 
 
