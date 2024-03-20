@@ -6,5 +6,5 @@ const Kind = require('../Models/KindModel')
     // res.render('HomePage', {layout: 'admin'}) pour enlever le footer en admin
     res.render('HomePage')
   },
-
+ 
 }

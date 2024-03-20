@@ -35,7 +35,7 @@ const User = config.sequelize.define('users', {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   },
-  isMember:{
+  isMember: {
     type: DataTypes.BOOLEAN,
     defaultValue: true
   },
@@ -49,13 +49,14 @@ const User = config.sequelize.define('users', {
       // Avant la création d'un utilisateur, hacher le mot de passe s'il est défini
       beforeCreate: (User) => {
         User.password = User.password && User.password !== "" ? bcrypt.hashSync(User.password, 10) : ""
+      },
+      // Avant la mise à jour d'un utilisateur, hacher le mot de passe s'il est défini
+      beforeUpdate: (User) => {
+        User.password = User.password && User.password !== "" ? bcrypt.hashSync(User.password, 10) : ""
       }
     }
   }
 
 )
-
-
-
 
 module.exports = User

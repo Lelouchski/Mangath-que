@@ -5,7 +5,7 @@ const Manga = require('./MangaModel')
 
 
 const Kind = config.sequelize.define('kinds', {
-  
+
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -16,11 +16,7 @@ const Kind = config.sequelize.define('kinds', {
     type: DataTypes.STRING,
     allowNull: false,
   }
-  
 }
 )
-Kind.hasOne(Manga)
-
-Manga.belongsTo(Kind)
 
 module.exports = Kind
