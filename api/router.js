@@ -47,6 +47,8 @@ router.route('/descriptionManga/:id').get(MangasController.goDescription)
 
 router.route('/').get(homeController.get)
 
+// Route pour afficher les mangas par genre
+router.route('/kinds/:genre').get(MangasController.kindOfMangas)
 
 router.route('/Login').get(userController.get)
 
