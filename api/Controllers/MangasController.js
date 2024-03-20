@@ -6,6 +6,7 @@ const Kind = require('../Models/KindModel')
 const Status = require('../Models/StatusModel')
 const multer = require('multer')
 const { Op } = require("sequelize") // Importation de l'opérateur d'égalité Sequelize
+const { log } = require('handlebars')
 
 
 
@@ -19,19 +20,42 @@ module.exports = {
 
         const mangas = await Manga.findAll({
             where: { title: { [Op.substring]: req.body.title } },
-            attributes: ['title','kindId','authorId','image_url','description'],
-            raw: true
+            attributes: ['title', 'kindId', 'authorId', 'image_url', 'description'],
+            raw: true,
         })
         res.render('descriptionManga', { mangas })
     },
     goDescription: async (req, res) => {
-        const manga = await Manga.findByPk(req.params.id, { raw: true })
-        res.render('descriptionManga',{manga})
+        const manga = await Manga.findByPk(req.params.id, {
+            include: [
+                {
+                    model: Author,
+                },
+                {
+                    model: Kind,
+                }
+            ], raw: true,
+            nest: true
+        })
+        console.log(manga)
+        res.render('descriptionManga', { manga })
     }, //A VOIRRRRRRRRRR !!!!!!!! (la recup de données sur NewsMangas aussi)
-    
+
     newMangas: async (req, res) => {
-        const mangas = await Manga.findAll({ raw: true }) // Récupération de tous les mangas depuis la base de données
-        res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas
+        const mangas = await Manga.findAll({
+            include: [
+                {
+                    model: Author,
+                },
+                {
+                    model: Kind,
+                }
+            ], raw: true,
+            nest: true
+        })
+        console.log(mangas) // Récupération de tous les mangas depuis la base de données
+        res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas   
+
     },
     getupdateManga: async (req, res) => {
         const manga = await Manga.findByPk(req.params.id, { raw: true })
@@ -65,11 +89,23 @@ module.exports = {
     },
 
     postAddMangas: async (req, res) => {
+// je recupere le nom d'auteur 
+const authorName = req.body.author
+// si il n'es=xiste pas je le crée
+ authorName = await Author.findOrCreate({
+    where: { name: authorName }
+})
+// je recupere le genre
+// si il n'existe pas je le crée
+const kindName = req.body.kind
+ kindName = await Kind.findOrCreate({
+    where: { Name: kindName }
+})
 
         await Manga.create({
             title: req.body.title,
-            author: req.body.author,
-            kind: req.body.kind,
+            authorId: req.body.authorId,//a remplacé pas authorID de l'auteur crée ou trouvé
+            kindId: req.body.kindId,// /a remplacé pas kindID du kind crée ou trouvé
             volume: req.body.volume,
             description: req.body.description,
             image_url: req.file.path
@@ -147,8 +183,8 @@ module.exports = {
     },
     acceptMangaList: async (req, res) => {
         await Manga.update(
-            { isVerified: true }, 
-            { where: { id: req.params.id } } 
+            { isVerified: true },
+            { where: { id: req.params.id } }
         )
         res.redirect('/NewsMangas')
     }

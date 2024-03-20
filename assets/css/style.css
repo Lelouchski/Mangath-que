@@ -36,3 +36,10 @@ ul.list-group li#list-account.list-group-item a{
 .overlay-content{
     color:bisque;
 }
+
+.custom-fav{
+    fill: pink; 
+}
+.custom-fav:hover{
+    fill: goldenrod
+}
