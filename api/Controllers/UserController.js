@@ -1,3 +1,4 @@
+
 const { validationResult } = require('express-validator') // Importation de la fonction validationResult d'express-validator
 const { Op } = require("sequelize") // Importation de l'opérateur d'égalité Sequelize
 const User = require('../Models/UserModel')
@@ -63,16 +64,17 @@ module.exports = {
         })
 
         if (!user) { // Si aucun utilisateur correspondant n'est trouvé
-            res.render('Login', { 'error': 'Ce compte est introuvable' })
+            res.status(401).render('Login', { 'error': 'Identifiant incorrect' })
         } else { // Si un utilisateur correspondant est trouvé
             // Comparaison du mot de passe saisi avec le mot de passe haché de l'utilisateur en base de données
             bcrypt.compare(password, user.password, async (err, result) => {
                 if (!result) { // Si les mots de passe ne correspondent pas
                     // Rendu de la vue login avec un message d'erreur
-                    res.status(401).render('login', { 'error': 'Mot de passe incorrect' })
+                    res.status(401).render('Login', { 'error': 'Identifiant incorrect' })
                 } else { // Si les mots de passe correspondent
                     // Enregistrement de l'utilisateur dans la session
                     req.session.username = user.username
+                    req.session.userId = user.id
                     res.redirect('/Account')
                 }
                 if (user.isAdmin) { // Si l'utilisateur est un administrateur
@@ -97,7 +99,7 @@ module.exports = {
     },
     updateUser: async (req, res) => {
         // Recherche de l'utilisateur à mettre à jour
-        const user = await User.findByPk(req.params.id);
+        const user = await User.findByPk(req.params.id)
 
         // Mise à jour des rôles de l'utilisateur
         await user.update({
@@ -108,5 +110,87 @@ module.exports = {
         })
 
         res.redirect('/gestionUsers')
+    },
+
+    // récupérer user à modifier
+    getUpdate: async (req, res) => {
+        const user = await User.findByPk(req.params.id, { raw: true })
+        res.redirect('/Account')
+    },
+
+    postUpdate: async (req, res) => {
+        const user = await User.findByPk(req.params.id, { raw: true })
+        if (!req.body.oldPassword) {
+            bcrypt.compare(req.body.password, user.password, async function (err, result) {
+                if (!result) {
+                    res.redirect('back')
+                } else {
+                    await User.update({
+                        email: req.body.email
+                    }, {
+                        where: {
+                            id: req.params.id
+                        }
+                    })
+                    res.redirect('/Account')
+                }
+            });
+        } else {
+            //comparer l'ancien MDP avec celui présent dans la BDD
+            bcrypt.compare(req.body.oldPassword, user.password, async function (err, result) {
+                if (!result) {
+                    res.redirect('back')
+                } else {
+                    //si OK
+                    //vérifier si le new MDP = newConfPass
+                    if (req.body.newPassword !== req.body.confNewPassword) {
+                        res.redirect('back')
+                    } else {
+                        //enregistrer le new MDP
+                        await User.update({
+                            password: req.body.newPassword
+                        }, { where: { id: req.params.id }, individualHooks: true })
+                        res.redirect('/Account')
+                    }
+                }
+            })
+        }
+    },
+    postUpdateEmail: async (req, res) => {
+        const user = await User.findByPk(req.params.id, { raw: true });
+    
+        // Vérifier si le mot de passe est fourni
+        if (!req.body.oldPassword) {
+            return res.redirect('back');
+        }
+    
+        // Comparer le mot de passe fourni avec celui stocké dans la base de données
+        bcrypt.compare(req.body.oldPassword, user.password, async function (err, result) {
+            if (!result) {
+                // Rediriger en arrière si le mot de passe fourni est incorrect
+                return res.redirect('back');
+            } else {
+                // Vérifier si les nouvelles adresses e-mail correspondent
+                if (req.body.newEmail !== req.body.confirmNewEmail) {
+                    // Rediriger en arrière si les adresses e-mail ne correspondent pas
+                    return res.redirect('back');
+                } else {
+                    // Mettre à jour l'adresse e-mail de l'utilisateur
+                    await User.update({
+                        email: req.body.newEmail
+                    }, {
+                        where: {
+                            id: req.params.id
+                        }
+                    });
+    
+                    // Rediriger vers la page du compte après la mise à jour réussie
+                    return res.redirect('/Account');
+                }
+            }
+        })
     }
+
+
 }
+

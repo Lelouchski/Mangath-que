@@ -28,7 +28,6 @@ ul.list-group li#list-account.list-group-item a{
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
     transition: opacity 0.3s ease;
-    
 }
 
 .card:hover .card-overlay {
@@ -36,4 +35,11 @@ ul.list-group li#list-account.list-group-item a{
 }
 .overlay-content{
     color:bisque;
+}
+
+.custom-fav{
+    fill: pink; 
+}
+.custom-fav:hover{
+    fill: goldenrod
 }

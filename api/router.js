@@ -43,6 +43,8 @@ const upload = multer({
 })
 
 router.route('/descriptionManga').post(MangasController.search)
+router.route('/descriptionManga/:id').get(MangasController.goDescription)
+
 router.route('/').get(homeController.get)
 
 
@@ -56,10 +58,20 @@ router.route('/Account').post(userController.login)
 
 router.route('/Account').get(userController.account)
 
+router.route('/Account/update/:id')
+    .get(userController.getUpdate)
+    .post([
+        param('id').isInt().withMessage('L\'ID doit être un entier positif'),
+        body('password').isEmpty().withMessage('L\'adresse e-mail doit être valide').escape()
+    ],userController.postUpdate)
+router.route('/Account/updateEmail/:id').post(userController.postUpdateEmail)
+    
+    
+
 router.route('/logout').get(userController.logout)
 
 router.route('/ProposeNewManga').get(MangasController.getProposition)
-router.route('/ProposeNewManga').post(MangasController.postProposition)
+router.route('/ProposeNewManga').post(upload.single('image_url'), MangasController.postProposition)
 
 
 router.route('/watchlist').get(userController.watchlist)
@@ -72,7 +84,7 @@ router.route('/NewsMangas/delete/:id').post(MangasController.deleteMangas)
 
 router.route('/MostPopular').get(MangasController.mostPopular)
 
-router.route('/KindOfMangas').get(MangasController.kindOfMangas)
+router.route('/kinds/:genre').get(MangasController.kindOfMangas)
 
 // router.route('/KindOfMangas/:kind').get(MangasController.kindOfMangas)
 
@@ -80,7 +92,12 @@ router.route('/gestionUsers').get(userController.list)
 router.route('/edit/users/:id').post(userController.updateUser)
 
 router.route('/listAddMangas').get(MangasController.getListAddMangas)
+router.route('/refuse/manga/:id').post(MangasController.refuseMangaList)
+router.route('/accept/manga/:id').post(MangasController.acceptMangaList)
+
+
 // router.route('/listAddMangas').post(MangasController.postListAddMangas)
+/delete/manga/
 
 router.route('/addMangas').get(MangasController.addMangas)
 router.route('/addMangas').post(upload.single('image_url'), MangasController.postAddMangas)
@@ -88,4 +105,3 @@ router.route('/addMangas').post(upload.single('image_url'), MangasController.pos
 
 
 module.exports = router
-
