@@ -61,7 +61,10 @@ router.route('/Account/update/:id')
     .post([
         param('id').isInt().withMessage('L\'ID doit être un entier positif'),
         body('password').isEmpty().withMessage('L\'adresse e-mail doit être valide').escape()
-    ],userController.postUpdate) 
+    ],userController.postUpdate)
+router.route('/Account/updateEmail/:id').post(userController.postUpdateEmail)
+    
+    
 
 router.route('/logout').get(userController.logout)
 

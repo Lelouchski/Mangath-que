@@ -9,12 +9,11 @@
                     <p class="ms-4">Bonjour {{username}}</p>
                     {{/if}}
                 </li>
-               <li id="list-account" class="list-group-item" data-bs-toggle="modal"
+                <li id="list-account" class="list-group-item" data-bs-toggle="modal"
                     data-bs-target="#changePasswordModal">
                     <a href="#" class="text-decoration-none">Modifier son mot de passe</a>
                 </li>
-                <li id="list-account" class="list-group-item" data-bs-toggle="modal"
-                    data-bs-target="#changeEmailModal">
+                <li id="list-account" class="list-group-item" data-bs-toggle="modal" data-bs-target="#changeEmailModal">
                     <a href="#" class="text-decoration-none">Modifier son adresse mail</a>
                 </li>
                 <li id="list-account" class="list-group-item ">
@@ -203,10 +202,10 @@
             <form action="/Account/update/{{userId}}" method="post">
                 <div class="modal-body">
                     <div class="mb-3">
-                       <label for="oldPassword" class="form-label">Rentrer votre ancien mot de passe</label>
+                        <label for="oldPassword" class="form-label">Rentrer votre ancien mot de passe</label>
                         <input name="oldPassword" type="password" class="form-control" id="oldPassword">
                     </div>
-                     <div class="mb-3">
+                    <div class="mb-3">
                         <label for="newPassword" class="form-label">Rentrer votre nouveau mot de passe</label>
                         <input name="newPassword" type="password" class="form-control" id="newPassword">
                     </div>
@@ -230,15 +229,19 @@
                 <h5 class="modal-title" id="changeEmailModalLabel">Modifier l'adresse e-mail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="changeEmailForm">
+            <form action="/Account/updateEmail/{{userId}}" method="post">
                 <div class="modal-body">
                     <div class="mb-3">
+                        <label for="oldPassword" class="form-label">Mot de passe actuel</label>
+                        <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="newEmail" class="form-label">Nouvelle adresse e-mail</label>
-                        <input type="email" class="form-control" id="newEmail" required>
+                        <input type="email" class="form-control" id="newEmail" name="newEmail" required>
                     </div>
                     <div class="mb-3">
                         <label for="confirmNewEmail" class="form-label">Confirmer la nouvelle adresse e-mail</label>
-                        <input type="email" class="form-control" id="confirmNewEmail" required>
+                        <input type="email" class="form-control" id="confirmNewEmail" name="confirmNewEmail" required>
                     </div>
                 </div>
                 <div class="modal-footer">

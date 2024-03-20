@@ -19,7 +19,7 @@ module.exports = {
 
         const mangas = await Manga.findAll({
             where: { title: { [Op.substring]: req.body.title } },
-            attributes: ['title'],
+            attributes: ['title','kindId','authorId','image_url','description'],
             raw: true
         })
         res.render('descriptionManga', { mangas })
