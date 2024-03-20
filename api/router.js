@@ -45,6 +45,8 @@ const upload = multer({
 router.route('/descriptionManga').post(MangasController.search)
 router.route('/').get(homeController.get)
 
+// Route pour afficher les mangas par genre
+router.route('/kinds/:genre').get(MangasController.kindOfMangas)
 
 router.route('/Login').get(userController.get)
 

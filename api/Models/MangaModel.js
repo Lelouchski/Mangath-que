@@ -39,6 +39,7 @@ const Manga = config.sequelize.define('mangas', {
 Author.hasOne(Manga)
 Manga.belongsTo(Author)
 
+
 Kind.hasOne(Manga)
 Manga.belongsTo(Kind)
 

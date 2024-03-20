@@ -26,8 +26,23 @@ module.exports = {
     },
 
     newMangas: async (req, res) => {
-        const mangas = await Manga.findAll({ raw: true }) // Récupération de tous les mangas depuis la base de données
-        res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas
+
+        try {
+            // Récupération de tous les mangas avec les informations sur l'auteur et le genre
+            const mangas = await Manga.findAll({
+                include: [
+                    { model: Author },
+                    { model: Kind }
+                ],
+                nest:true, raw: true // Pour récupérer les résultats sous forme de tableau JavaScript simple
+            });
+            console.log(mangas); 
+            // Rendu de la vue avec la liste des mangas
+            res.render('NewsMangas', { mangas });
+        } catch (error) {
+            console.error('Error ', error);
+            res.status(500).json({ error: 'Error' });
+        }
     },
     getupdateManga: async (req, res) => {
         const manga = await Manga.findByPk(req.params.id, { raw: true })
@@ -75,18 +90,29 @@ module.exports = {
 
     },
 
-    kindOfMangas: async (req, res) => {
-        const genre = req.params.genre
-
+    kindOfMangas : async (req, res) => {
         try {
-            const mangas = await Manga.findAll({ where: { genre } })
-
-            res.json(mangas)
+            const genre = req.params.genre;
+            // Récupération de tous les mangas avec les informations sur l'auteur et le genre
+            const mangas = await Manga.findAll({
+                include: [
+                    { model: Author },
+                    { model: Kind,}
+                ],
+                where: {
+                    '$kind.name$': genre // Utilisation de l'alias du modèle Kind pour filtrer par nom de genre
+                },
+                nest:true, raw: true // Pour récupérer les résultats sous forme de tableau JavaScript simple
+            });
+            console.log(mangas); 
+            // Rendu de la vue avec la liste des mangas
+            res.render('KindOfMangas', { mangas });
         } catch (error) {
-            console.error('Error ', error)
-            res.status(500).json({ error: ' Error' })
+            console.error('Error ', error);
+            res.status(500).json({ error: 'Error' });
         }
     },
+    
     getListAddMangas: async (req, res) => {
         const mangas = await Manga.findAll({
             include: [{

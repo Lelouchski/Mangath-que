@@ -108,5 +108,6 @@ module.exports = {
         })
 
         res.redirect('/gestionUsers')
-    }
+    },
+    
 }
