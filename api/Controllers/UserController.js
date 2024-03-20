@@ -6,6 +6,8 @@ const Manga = require('../Models/MangaModel')
 const Author = require('../Models/AuthorModel')
 const Kind = require('../Models/KindModel')
 const Status = require('../Models/StatusModel')
+const Follow = require('../Models/followModel')
+
 
 module.exports = {
 
@@ -93,4 +95,18 @@ module.exports = {
         const users = await User.findAll({ raw: true }) // Récupération de tous les utilisateurs depuis la base de données
         res.render('gestionUsers', { users, layout: 'admin' })// Rendu de la vue gestionUsers avec la liste des utilisateurs
     },
+    updateUser: async (req, res) => {
+        // Recherche de l'utilisateur à mettre à jour
+        const user = await User.findByPk(req.params.id);
+
+        // Mise à jour des rôles de l'utilisateur
+        await user.update({
+            isAdmin: req.body.isAdmin === 'on',
+            isModerator: req.body.isModerator === 'on',
+            isMember: req.body.isMember === 'on'
+
+        })
+
+        res.redirect('/gestionUsers')
+    }
 }

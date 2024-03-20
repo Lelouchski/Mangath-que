@@ -1,69 +1,82 @@
-<table class="table table-hover ">
+<table class="table table-hover">
     <thead>
         <tr>
             <th scope="col">Nom d'utilisateur</th>
             <th scope="col">Email</th>
             <th scope="col">Modérateur</th>
-            <th scope="col">Membre</th>
+            <th scope="col">Admin</th>
             <th scope="col">Supprimer</th>
+            <th scope="col">Modifier</th>
         </tr>
     </thead>
     <tbody>
         {{#each users}}
         <tr>
-            <th scope="row">{{username}}</th>
+            <td>{{username}}</td>
             <td>{{email}}</td>
             <td>{{isModerator}}</td>
-            <td>{{isMember}}</td>
-            <td><button type="button" class="btn bg-danger-subtle border-white" data-bs-toggle="modal"
-                    data-bs-target="#deleteUserModal{{this.id}}">
-                    Supprimer</button></td>
+            <td>{{isAdmin}}</td>
+            <td>
+                <button type="button" class="btn bg-danger-subtle border-white" data-bs-toggle="modal"
+                    data-bs-target="#deleteUserModal{{id}}">
+                    Supprimer
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                    data-bs-target="#editUserModal{{id}}">
+                    Modifier
+                </button>
+            </td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+
 {{#each users}}
 <!-- Modal Modifier -->
-
-<div class="modal fade" id="editUserModal{{this.id}}" tabindex="-1" aria-labelledby="editUserModal{{this.id}}"
+<div class="modal fade" id="editUserModal{{id}}" tabindex="-1" aria-labelledby="editUserModal{{id}}Label"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModal{{id}}Label">Modifier l'utilisateur {{username}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <form action="/edit/users/{{id}}" method="post">
-                <div class="modal-body d-grid align-item-center">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Nom d'utilisateur</label>
-                        <input type="text" id="username" value="{{username}}" class="form-control" name="username">
+                <div class="modal-body">
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="isAdmin" name="isAdmin" {{#if
+                            isAdmin}}checked{{/if}}>
+                        <label class="form-check-label" for="isAdmin">Administrateur</label>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" value="{{email}}" class="form-control" name="email">
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="isModerator" name="isModerator" {{#if
+                            isModerator}}checked{{/if}}>
+                        <label class="form-check-label" for="isModerator">Modérateur</label>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Mot de passe</label>
-                        <input type="password" id="password" value="{{password}}" class="form-control" name="password">
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="isMember" name="isMember" {{#if
+                            isMember}}checked{{/if}}>
+                        <label class="form-check-label" for="isMember">Membre</label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn bg-warning-subtle border-white">Enregistrer les
-                        modifications</button>
-                    <button type="button" class="btn bg-danger-subtle border-white"
-                        data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                 </div>
+            </form>
         </div>
-        </form>
     </div>
-</div>
-</div>
 </div>
 
 <!-- Modal Supprimer -->
-<div class="modal fade" id="deleteUserModal{{id}}" tabindex="-1" aria-labelledby="deleteUserModal{{id}}"
+<div class="modal fade" id="deleteUserModal{{id}}" tabindex="-1" aria-labelledby="deleteUserModal{{id}}Label"
     aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content ">
+        <div class="modal-content">
             <div class="modal-header bg-danger-subtle">
-                <h5 class="modal-title" id="deleteCommentModalLabel">Suppression de commentaire</h5>
+                <h5 class="modal-title" id="deleteUserModal{{id}}Label">Suppression de l'utilisateur {{username}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -71,9 +84,7 @@
             </div>
             <div class="modal-footer">
                 <form action="/delete/users/{{id}}" method="post">
-                    <button type="submit" class="btn bg-danger-subtle border-white">
-                        Supprimer définitivement
-                    </button>
+                    <button type="submit" class="btn bg-danger-subtle border-white">Supprimer définitivement</button>
                 </form>
             </div>
         </div>
