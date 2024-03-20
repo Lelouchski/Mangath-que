@@ -114,16 +114,26 @@ const kindName = req.body.kind
         res.redirect('/NewsMangas') // Redirection vers la page 
     },
 
-    kindOfMangas: async (req, res) => {
-        const genre = req.params.genre
-
+    kindOfMangas : async (req, res) => {
         try {
-            const mangas = await Manga.findAll({ where: { genre } })
-
-            res.json(mangas)
+            const genre = req.params.genre;
+            // Récupération de tous les mangas avec les informations sur l'auteur et le genre
+            const mangas = await Manga.findAll({
+                include: [
+                    { model: Author },
+                    { model: Kind,}
+                ],
+                where: {
+                    '$kind.name$': genre // Utilisation de l'alias du modèle Kind pour filtrer par nom de genre
+                },
+                nest:true, raw: true // Pour récupérer les résultats sous forme de tableau JavaScript simple
+            });
+            console.log(mangas);
+            // Rendu de la vue avec la liste des mangas
+            res.render('KindOfMangas', { mangas });
         } catch (error) {
-            console.error('Error ', error)
-            res.status(500).json({ error: ' Error' })
+            console.error('Error ', error);
+            res.status(500).json({ error: 'Error' });
         }
     },
     getListAddMangas: async (req, res) => {
@@ -142,22 +152,10 @@ const kindName = req.body.kind
 
     },
 
-    // postListAddMangas: async (req, res) => {
-    //     const mangas = await Manga.findAll({
-    //         include: [{
-    //             model: User,
-    //             where: { isAdmin: false }
-    //         }],
-    //         raw: true
-
-    //     })
-
-    //     res.render('Account', { mangas, layout: 'admin' })
-
-    // },
     getProposition: (req, res) => {
         res.render('ProposeNewManga')
     },
+
     postProposition: async (req, res) => {
 
         await Manga.create({

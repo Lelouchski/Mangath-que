@@ -84,7 +84,7 @@ router.route('/NewsMangas/delete/:id').post(MangasController.deleteMangas)
 
 router.route('/MostPopular').get(MangasController.mostPopular)
 
-router.route('/KindOfMangas').get(MangasController.kindOfMangas)
+router.route('/kinds/:genre').get(MangasController.kindOfMangas)
 
 // router.route('/KindOfMangas/:kind').get(MangasController.kindOfMangas)
 

@@ -1,24 +1,28 @@
-kindOfManga.hbs : <div class="container">
-    <h1>{{ genre }}</h1>
-    <div class="row mt-5">
+<div class="container">
+    <h1>{{genre}}</h1>
+    <div class="row mt-5 ">
         {{#each mangas}}
-            <div class="col-md-4 mb-3">
-                <div class="card w-50 h-50">
-                    <img src="/{{image_url}}" class="card" alt="Image du manga">
-                    <div class="card-overlay position-absolute top-0 start-0 bottom-0 end-0 d-flex justify-content-center align-items-center">
-                        <div class="overlay-content text-center">
-                            <h5 class="card-title">{{title}}</h5>
-                            <p class="card-text">Auteur: {{author.name}}</p>
-                            <p class="card-text">Genre: {{kind.Name}}</p>
-                            <p class="card-text">Nombre de tomes: {{volume}}</p>
-                        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 15em">
+                <img src="/{{image_url}}" class="card custom-img"  alt="Image du manga">
+                <div
+                    class="card-overlay position-absolute top-0 start-0 bottom-0 end-0 d-flex justify-content-center align-items-center">
+                    <div class="overlay-content text-center">
+                        <a href="/descriptionManga/{{this.id}}" class="stretched-link"></a>
+                        <h5 class="card-title">{{title}}</h5>
+                        <p class="card-text">Auteur: {{author.name}}</p>
+                        <p class="card-text">Genre: {{kind.Name}}</p>
+                        <p class="card-text">Nombre de tomes: {{volume}}</p>
                     </div>
-                    {{#if @root.isAdmin}}
-                        <button data-bs-toggle="modal" data-bs-target="#editMangaModal{{id}}" class="btn bg-warning-subtle border-white me-2">Modifier</button>
-                        <button data-bs-toggle="modal" data-bs-target="#deleteMangaModal{{id}}" class="btn bg-danger-subtle border-white me-2">Supprimer</button>
-                    {{/if}}
                 </div>
             </div>
+            {{#if @root.isAdmin}}
+            <button data-bs-toggle="modal" data-bs-target="#editMangaModal{{id}}"
+                class="btn bg-warning-subtle border-white me-2">Modifier</button>
+            <button data-bs-toggle="modal" data-bs-target="#deleteMangaModal{{id}}"
+                class="btn bg-danger-subtle border-white me-2">Supprimer</button>
+            {{/if}}
+        </div>
             <!-- Modal Modifier -->
             <div class="modal fade" id="editMangaModal{{id}}" tabindex="-1" aria-labelledby="editMangaModalLabel{{id}}" aria-hidden="true">
                 <div class="modal-dialog">
