@@ -1,3 +1,4 @@
+
 const express = require('express') 
 const { engine, ExpressHandlebars } = require('express-handlebars') 
 const router = require('./api/router') 
@@ -12,8 +13,25 @@ const MomentHandler = require("handlebars.moment") // Handlebars.moment est un w
 MomentHandler.registerHelpers(Handlebars) // Enregistrement des helpers Handlebars fournis par Handlebars.moment
 
 
+
 app.engine('hbs', engine({
-    extname: 'hbs'}))
+    extname: 'hbs', // Extension des fichiers de modèle
+    helpers: {
+        // Helper personnalisé permettant de gérer les conditions dans les templates Handlebars
+        ifCond: function(v1, v2, options){
+            if (options && typeof options.fn === 'function' && typeof options.inverse === 'function') {
+                if (v1 === v2) {
+                    return options.fn(this) // Exécute le bloc de code conditionnel si la condition est vraie
+                } else {
+                    return options.inverse(this) // Exécute le bloc de code alternatif si la condition est fausse
+                }
+            } else {
+                console.error("Les options ne sont pas correctement définies.")
+                return "" // Retourne une chaîne vide si les options ne sont pas correctement définies
+            }
+        }
+    }
+}))
 
 app.set('view engine', 'hbs')
 
@@ -38,8 +56,12 @@ app.use(session({
 app.use('*', (req, res, next) => {
     if (req.session.username) { // Vérification si un utilisateur est connecté
         res.locals.username = req.session.username // Variable locale contenant le nom d'utilisateur
+        res.locals.userId = req.session.userId
         if (req.session.isAdmin) { // Vérification si l'utilisateur est administrateur
             res.locals.isAdmin = req.session.isAdmin // Variable locale indiquant si l'utilisateur est administrateur
+        }
+        if (req.session.isModerator) { // Vérification si l'utilisateur est modérateru
+            res.locals.isModerator = req.session.isModerator // Variable locale indiquant si l'utilisateur est modérateur
         }
     }
     next() // Appel de la fonction next pour passer au middleware suivant

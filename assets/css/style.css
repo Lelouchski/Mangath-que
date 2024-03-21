@@ -1,0 +1,45 @@
+#iconAccount {
+    background: #fefefe;
+    border-radius: 100%;
+    height: 32px
+}
+
+#lightmode {
+    background: #fefefe;
+    border-radius: 50%;
+    height: 32px
+}
+
+#iconAccountPage{
+    height: 70px;
+    background: #fefefe;
+    border-radius: 100%;
+}
+
+ul.list-group li#list-account.list-group-item:hover a {
+    color: rgb(252, 161, 217);
+}
+
+ul.list-group li#list-account.list-group-item a{
+    color: inherit;
+    text-decoration: none,
+}
+.card-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .card-overlay {
+    opacity: 1;
+}
+.overlay-content{
+    color:bisque;
+}
+
+.custom-fav{
+    fill: pink; 
+}
+.custom-fav:hover{
+    fill: goldenrod
+}

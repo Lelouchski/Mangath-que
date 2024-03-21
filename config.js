@@ -1,9 +1,10 @@
 const { Sequelize } = require('sequelize')
 
 // Définition des paramètres de connexion à la base de données
-const sequelize = new Sequelize('mangathèque', 'root', '', {
+const sequelize = new Sequelize('mangatheque', 'root', '', {
   host: 'localhost',
-  dialect: 'mysql'
+  dialect: 'mysql',
+  logging: false
 })
 
 // Synchronisation du modèle avec la base de données
