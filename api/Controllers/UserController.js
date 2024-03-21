@@ -18,10 +18,23 @@ module.exports = {
     inscription: (req, res) => {
         res.render('Inscription')
     },
-    watchlist: (req, res) => {
-        res.render('Watchlist')
+    readlist: (req, res) => {
+        res.render('Readlist')
     },
-
+    postReadList: async (req, res) => {
+        const mangas = await Manga.findAll({
+            include: [
+                {
+                    model: Author,
+                },
+                {
+                    model: Kind,
+                }
+            ], raw: true,
+            nest: true
+        })
+        res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas 
+    },
 
     postInscription: async (req, res) => {
         const result = validationResult(req) // Validation des données de la requête

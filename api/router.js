@@ -74,7 +74,9 @@ router.route('/ProposeNewManga').get(MangasController.getProposition)
 router.route('/ProposeNewManga').post(upload.single('image_url'), MangasController.postProposition)
 
 
-router.route('/watchlist').get(userController.watchlist)
+router.route('/Readlist').get(userController.readlist)
+router.route('/Readlist').post(userController.postReadList)
+
 
 router.route('/NewsMangas').get(MangasController.newMangas)
 router.route('/NewsMangas/:id').get(MangasController.getupdateManga)

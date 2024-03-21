@@ -45,10 +45,9 @@ module.exports = {
             ], raw: true,
             nest: true
         })
-        console.log(mangas);
 
         res.render('descriptionManga', { mangas })
-    }, 
+    },
 
     newMangas: async (req, res) => {
         const mangas = await Manga.findAll({
@@ -62,7 +61,6 @@ module.exports = {
             ], raw: true,
             nest: true
         })
-        console.log(mangas) // Récupération de tous les mangas depuis la base de données
         res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas   
 
     },
@@ -98,18 +96,18 @@ module.exports = {
     },
 
     postAddMangas: async (req, res) => {
-        // // je recupere le nom d'auteur 
-        // const authorName = req.body.author
-        // // si il n'es=xiste pas je le crée
-        //  authorName = await Author.findOrCreate({
-        //     where: { name: authorName }
-        // })
-        // // je recupere le genre
-        // // si il n'existe pas je le crée
-        // const kindName = req.body.kind
-        //  kindName = await Kind.findOrCreate({
-        //     where: { Name: kindName }
-        // })
+        // je recupere le nom d'auteur 
+        const name = req.body.author
+        // si il n'es=xiste pas je le crée
+        name = await Author.findOrCreate({
+            where: { name: name }
+        })
+        // je recupere le genre
+        // si il n'existe pas je le crée
+        const Name = req.body.kind
+        Name = await Kind.findOrCreate({
+            where: { Name: Name }
+        })
 
         await Manga.create({
             title: req.body.title,
@@ -146,19 +144,18 @@ module.exports = {
         }
     },
     getListAddMangas: async (req, res) => {
+
         const mangas = await Manga.findAll({
             where: { isVerified: false },
-            include: [{
-                model: User,
-                model: Kind,
-                model: Author
-                // where: { isAdmin: false, isMember: true } // Commentez ou retirez cette ligne temporairement
-            }],
-            raw: true
-        });
-        console.log(mangas)
-        res.render('listAddMangas', { mangas, layout: 'admin' })
+            include: [
+                { model: Author },
+                { model: Kind }
+            ],
+            raw: true,
+            nest: true
+        })
 
+        res.render('listAddMangas', { mangas, layout: 'admin' })
     },
 
     getProposition: (req, res) => {
