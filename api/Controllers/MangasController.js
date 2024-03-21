@@ -89,18 +89,18 @@ module.exports = {
     },
 
     postAddMangas: async (req, res) => {
-// je recupere le nom d'auteur 
-const authorName = req.body.author
-// si il n'es=xiste pas je le crée
- authorName = await Author.findOrCreate({
-    where: { name: authorName }
-})
-// je recupere le genre
-// si il n'existe pas je le crée
-const kindName = req.body.kind
- kindName = await Kind.findOrCreate({
-    where: { Name: kindName }
-})
+        // // je recupere le nom d'auteur 
+        // const authorName = req.body.author
+        // // si il n'es=xiste pas je le crée
+        //  authorName = await Author.findOrCreate({
+        //     where: { name: authorName }
+        // })
+        // // je recupere le genre
+        // // si il n'existe pas je le crée
+        // const kindName = req.body.kind
+        //  kindName = await Kind.findOrCreate({
+        //     where: { Name: kindName }
+        // })
 
         await Manga.create({
             title: req.body.title,
@@ -114,19 +114,19 @@ const kindName = req.body.kind
         res.redirect('/NewsMangas') // Redirection vers la page 
     },
 
-    kindOfMangas : async (req, res) => {
+    kindOfMangas: async (req, res) => {
         try {
             const genre = req.params.genre;
             // Récupération de tous les mangas avec les informations sur l'auteur et le genre
             const mangas = await Manga.findAll({
                 include: [
                     { model: Author },
-                    { model: Kind,}
+                    { model: Kind, }
                 ],
                 where: {
                     '$kind.name$': genre // Utilisation de l'alias du modèle Kind pour filtrer par nom de genre
                 },
-                nest:true, raw: true // Pour récupérer les résultats sous forme de tableau JavaScript simple
+                nest: true, raw: true // Pour récupérer les résultats sous forme de tableau JavaScript simple
             });
             console.log(mangas);
             // Rendu de la vue avec la liste des mangas
