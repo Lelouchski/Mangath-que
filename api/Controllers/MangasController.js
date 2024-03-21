@@ -22,11 +22,19 @@ module.exports = {
             where: { title: { [Op.substring]: req.body.title } },
             attributes: ['title', 'kindId', 'authorId', 'image_url', 'description'],
             raw: true,
+            include: [
+                {
+                    model: Author,
+                },
+                {
+                    model: Kind,
+                }
+            ]
         })
-        res.render('descriptionManga', { mangas })
+        res.render('searchResult', { mangas })
     },
     goDescription: async (req, res) => {
-        const manga = await Manga.findByPk(req.params.id, {
+        const mangas = await Manga.findByPk(req.params.id, {
             include: [
                 {
                     model: Author,
@@ -37,8 +45,9 @@ module.exports = {
             ], raw: true,
             nest: true
         })
-        console.log(manga)
-        res.render('descriptionManga', { manga })
+        console.log(mangas);
+
+        res.render('descriptionManga', { mangas })
     }, 
 
     newMangas: async (req, res) => {
