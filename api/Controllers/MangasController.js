@@ -39,7 +39,7 @@ module.exports = {
         })
         console.log(manga)
         res.render('descriptionManga', { manga })
-    }, //A VOIRRRRRRRRRR !!!!!!!! (la recup de données sur NewsMangas aussi)
+    }, 
 
     newMangas: async (req, res) => {
         const mangas = await Manga.findAll({
