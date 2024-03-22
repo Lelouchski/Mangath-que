@@ -5,7 +5,7 @@ const homeController = require('./Controllers/HomeController')
 const userController = require('./Controllers/UserController')
 const MangasController = require('./Controllers/MangasController')
 const multer = require('multer')
-const path = require('path') 
+const path = require('path')
 
 
 const storage = multer.diskStorage({
@@ -42,39 +42,100 @@ const upload = multer({
     }
 })
 
-router.route('/descriptionManga').post(MangasController.search)
-router.route('/').get(homeController.get)
+
+// *****************route***************
 
 
-router.route('/Login').get(userController.get)
+router.route('/descriptionManga')
+    .post(MangasController.search)
 
-router.route('/Inscription').get(userController.inscription)
+router.route('/')
+    .get(homeController.get)
 
-router.route('/Inscription').post(userController.postInscription)
+router.route('/Login')
+    .get(userController.get)
+    .post(
+        body('email')
+        .exists()
+        .trim()
+        .escape()
+        .notEmpty().withMessage('Identifiant érroné')
+        .isString().withMessage('Identifiant érroné')
+        .isEmail().withMessage('Identifiant érroné'),
+         body('password')
+        .exists()
+        .trim()
+        .escape()
+        .notEmpty().withMessage('Identifiant érroné')
+        .isString().withMessage('Identifiant érroné')
+        .isLength({min : 7 }).withMessage('Identifiant érroné')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/),
+        userController.login)
 
-router.route('/Account').post(userController.login)
-router.route('/Account').get(userController.account)
-router.route('/logout').get(userController.logout)
-router.route('/watchlist').get(userController.watchlist)
+    router.route('/Inscription')
+    .get(userController.inscription)
+    .post(
+        body('email')
+        .exists()
+        .trim()
+        .escape()
+        .notEmpty().withMessage('Identifiant érroné')
+        .isString().withMessage('Identifiant érroné')
+        .isEmail().withMessage('Identifiant érroné'),
+        body('username')
+        .exists()
+        .trim()
+        .escape()
+        .notEmpty().withMessage('Identifiant érroné')
+        .isString().withMessage('Identifiant érroné')
+        .isLength({min : 5 }).withMessage('Identifiant érroné'),
+        body('password')
+        .exists()
+        .trim()
+        .escape()
+        .notEmpty().withMessage('Identifiant érroné')
+        .isString().withMessage('Identifiant érroné')
+        .isLength({min : 7 }).withMessage('Identifiant érroné')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/),
+        body('confPassword')
+        .exists()
+        .trim()
+        .escape()
+        .notEmpty().withMessage('Identifiant érroné')
+        .isString().withMessage('Identifiant érroné')
+        .isLength({min : 7 }).withMessage('Identifiant érroné')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/),
+         userController.postInscription)
 
-router.route('/NewsMangas').get(MangasController.newMangas)
 
-router.route('/MostPopular').get(MangasController.mostPopular)
 
-router.route('/KindOfMangas').get(MangasController.kindOfMangas)
+router.route('/Account')
+    .get(userController.account)
+    .post(userController.login)
+
+
+
+router.route('/logout')
+    .get(userController.logout)
+router.route('/watchlist')
+    .get(userController.watchlist)
+
+router.route('/NewsMangas')
+    .get(MangasController.newMangas)
+
+router.route('/MostPopular')
+    .get(MangasController.mostPopular)
+
+router.route('/KindOfMangas')
+    .get(MangasController.kindOfMangas)
 
 // router.route('/KindOfMangas/:kind').get(MangasController.kindOfMangas)
 
-router.route('/gestionUsers').get(userController.list)
+router.route('/gestionUsers')
+    .get(userController.list)
 
-router.route('/listAddMangas').get(MangasController.list)
-
-router.route('/addMangas').get(MangasController.addMangas)
-
-
-
-
-
+router.route('/addMangas')
+    .get(MangasController.addMangas)
 
 
 

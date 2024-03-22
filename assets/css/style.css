@@ -37,3 +37,12 @@ ul.list-group li#list-account.list-group-item a{
 .overlay-content{
     color:bisque;
 }
+.error{
+    color: red;
+    display: none;
+}
+
+.error-message{
+    color: red;
+    margin-left: 30px;
+}
