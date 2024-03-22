@@ -96,18 +96,18 @@ module.exports = {
     },
 
     postAddMangas: async (req, res) => {
-        // je recupere le nom d'auteur 
-        const name = req.body.author
-        // si il n'es=xiste pas je le crée
-        name = await Author.findOrCreate({
-            where: { name: name }
-        })
-        // je recupere le genre
-        // si il n'existe pas je le crée
-        const Name = req.body.kind
-        Name = await Kind.findOrCreate({
-            where: { Name: Name }
-        })
+        // // je recupere le nom d'auteur 
+        // const authorname = req.body.authorname
+        // // si il n'es=xiste pas je le crée
+        // authorname = await Author.findOrCreate({
+        //     where: { name: authorname }
+        // })
+        // // je recupere le genre
+        // // si il n'existe pas je le crée
+        // const kindName = req.body.kindName
+        // kindName = await Kind.findOrCreate({
+        //     where: { Name: kindName }
+        // })
 
         await Manga.create({
             title: req.body.title,
@@ -131,7 +131,7 @@ module.exports = {
                     { model: Kind, }
                 ],
                 where: {
-                    '$kind.name$': genre // Utilisation de l'alias du modèle Kind pour filtrer par nom de genre
+                    '$Kind.Name$': genre // Utilisation de l'alias du modèle Kind pour filtrer par nom de genre
                 },
                 nest: true, raw: true // Pour récupérer les résultats sous forme de tableau JavaScript simple
             });
@@ -146,7 +146,9 @@ module.exports = {
     getListAddMangas: async (req, res) => {
 
         const mangas = await Manga.findAll({
-            where: { isVerified: false },
+            where: {
+                isVerified: 0
+            },
             include: [
                 { model: Author },
                 { model: Kind }
@@ -191,6 +193,24 @@ module.exports = {
             { where: { id: req.params.id } }
         )
         res.redirect('/NewsMangas')
-    }
+    },
 
+    getConfirmListAdd: async (req, res) => {
+
+        const mangas = await Manga.findAll({
+            where: {
+                isVerified: 1
+            },
+            order: [['createdAt', 'DESC']], // Tri des commentaires par date de création décroissante
+            include: [
+                { model: Author },
+                { model: Kind },
+                { model: User }
+            ],
+            raw: true,
+            nest: true
+        })
+
+        res.render('confirmListAdd', { mangas, layout: 'admin' })
+    },
 }

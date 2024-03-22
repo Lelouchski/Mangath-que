@@ -96,7 +96,7 @@ router.route('/listAddMangas').get(MangasController.getListAddMangas)
 router.route('/refuse/manga/:id').post(MangasController.refuseMangaList)
 router.route('/accept/manga/:id').post(MangasController.acceptMangaList)
 
-
+router.route('/confirmListAdd').get(MangasController.getConfirmListAdd)
 
 
 router.route('/addMangas').get(MangasController.addMangas)

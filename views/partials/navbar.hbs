@@ -4,7 +4,6 @@
             <a class="navbar-brand" aria-label="Logo du site" href="/">
                 <img src="/assets//images/bande-dessinee.png" alt="">
             </a>
-            <a class="navbar-brand" aria-label="Nom du site" href="/">MANGATHÈQUE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -35,9 +34,8 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/gestionUsers">Liste des membres</a></li>
                             <li><a class="dropdown-item" href="/addMangas">Ajouter un manga</a></li>
-                            <li><a class="dropdown-item" href="#">Liste des mangas ajoutés</a></li>
-                            <li><a class="dropdown-item" href="#">Manhwa</a></li>
-                            <li><a class="dropdown-item" href="#">Kowai</a></li>
+                            <li><a class="dropdown-item" href="/confirmListAdd">Liste des mangas ajoutés</a></li>
+                            <li><a class="dropdown-item" href="/listAddMangas">Demandes d'ajouts</a></li>
                         </ul>
                     </li>
                     {{/if}}
@@ -105,25 +103,3 @@
         </div>
     </nav>
 </header>
-
-<!-- Modal pour la recherche -->
-<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="searchModalLabel">Rechercher</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="px-4 py-3" role="search" method="post" action="/searchResult">
-                    <div class="mb-3">
-                        <input type="search" class="form-control form-control-lg" name="title">
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-warning">Rechercher</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
