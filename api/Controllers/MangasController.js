@@ -147,7 +147,7 @@ module.exports = {
 
         const mangas = await Manga.findAll({
             where: {
-                isVerified: 0
+                isVerified: 0,
             },
             include: [
                 { model: Author },
