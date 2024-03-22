@@ -5,7 +5,7 @@ const homeController = require('./Controllers/HomeController')
 const userController = require('./Controllers/UserController')
 const MangasController = require('./Controllers/MangasController')
 const multer = require('multer')
-const path = require('path') 
+const path = require('path')
 
 
 const storage = multer.diskStorage({
@@ -42,65 +42,108 @@ const upload = multer({
     }
 })
 
-router.route('/searchResult').post(MangasController.search)
-router.route('/descriptionManga/:id').get(MangasController.goDescription)
+router.route('/')
+    .get(homeController.get)
 
 
-router.route('/').get(homeController.get)
+router.route('/searchResult')
+    .post(MangasController.search)
+
+router.route('/descriptionManga/:id')
+    .get(MangasController.goDescription)
+
+router.route('/ProposeNewManga')
+    .get(MangasController.getProposition)
+
+router.route('/ProposeNewManga')
+    .post(upload.single('image_url'), MangasController.postProposition)
+
+router.route('/NewsMangas')
+    .get(MangasController.newMangas)
+
+router.route('/NewsMangas/:id')
+    .get(MangasController.getupdateManga)
+
+router.route('/NewsMangas/:id')
+    .post(MangasController.postUpdateManga)
+
+router.route('/NewsMangas/delete/:id')
+    .post(MangasController.deleteMangas)
+
+router.route('/MostPopular')
+    .get(MangasController.mostPopular)
+
+router.route('/kinds/:genre')
+    .get(MangasController.kindOfMangas)
+
+router.route('/listAddMangas')
+    .get(MangasController.getListAddMangas)
+
+router.route('/refuse/manga/:id')
+    .post(MangasController.refuseMangaList)
+
+router.route('/accept/manga/:id')
+    .post(MangasController.acceptMangaList)
+
+router.route('/confirmListAdd')
+    .get(MangasController.getConfirmListAdd)
+
+router.route('/addMangas')
+    .get(MangasController.addMangas)
+
+router.route('/addMangas')
+    .post(upload.single('image_url'), MangasController.postAddMangas)
 
 
-router.route('/Login').get(userController.get)
 
-router.route('/Inscription').get(userController.inscription)
 
-router.route('/Inscription').post(userController.postInscription)
 
-router.route('/Account').post(userController.login)
+router.route('/Login')
+    .get(userController.get)
 
-router.route('/Account').get(userController.account)
+router.route('/Inscription')
+    .get(userController.inscription)
+
+router.route('/Inscription')
+    .post(userController.postInscription)
+
+router.route('/Account')
+    .post(userController.login)
+
+router.route('/Account')
+    .get(userController.account)
 
 router.route('/Account/update/:id')
     .get(userController.getUpdate)
     .post([
         param('id').isInt().withMessage('L\'ID doit être un entier positif'),
         body('password').isEmpty().withMessage('L\'adresse e-mail doit être valide').escape()
-    ],userController.postUpdate)
-router.route('/Account/updateEmail/:id').post(userController.postUpdateEmail)
-    
-    
+    ], userController.postUpdate)
 
-router.route('/logout').get(userController.logout)
+router.route('/Account/updateEmail/:id')
+    .post(userController.postUpdateEmail)
 
-router.route('/ProposeNewManga').get(MangasController.getProposition)
-router.route('/ProposeNewManga').post(upload.single('image_url'), MangasController.postProposition)
+router.route('/logout')
+    .get(userController.logout)
 
+router.route('/Readlist')
+    .get(userController.readlist)
 
-router.route('/Readlist').get(userController.readlist)
+router.route('/toRead/:mangaId')
+    .post(userController.postToRead)
 
+router.route('/inProgress/:mangaId')
+    .post(userController.postInProgress)
 
-router.route('/NewsMangas').get(MangasController.newMangas)
-router.route('/NewsMangas/:id').get(MangasController.getupdateManga)
-router.route('/NewsMangas/:id').post(MangasController.postUpdateManga)
-router.route('/NewsMangas/delete/:id').post(MangasController.deleteMangas)
+router.route('/alreadyRead/:mangaId')
+    .post(userController.postAlreadyRead)
 
+router.route('/gestionUsers')
+    .get(userController.list)
 
-router.route('/MostPopular').get(MangasController.mostPopular)
+router.route('/edit/users/:id')
+    .post(userController.updateUser)
 
-router.route('/kinds/:genre').get(MangasController.kindOfMangas)
-
-
-router.route('/gestionUsers').get(userController.list)
-router.route('/edit/users/:id').post(userController.updateUser)
-
-router.route('/listAddMangas').get(MangasController.getListAddMangas)
-router.route('/refuse/manga/:id').post(MangasController.refuseMangaList)
-router.route('/accept/manga/:id').post(MangasController.acceptMangaList)
-
-router.route('/confirmListAdd').get(MangasController.getConfirmListAdd)
-
-
-router.route('/addMangas').get(MangasController.addMangas)
-router.route('/addMangas').post(upload.single('image_url'), MangasController.postAddMangas)
 
 
 

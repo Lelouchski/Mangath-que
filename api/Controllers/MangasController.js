@@ -62,7 +62,7 @@ module.exports = {
             nest: true
         })
         res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas   
-
+        
     },
     getupdateManga: async (req, res) => {
         const manga = await Manga.findByPk(req.params.id, { raw: true })
