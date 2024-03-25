@@ -3,15 +3,14 @@
         {{#each mangas}}
         <div class="col-md-4 mb-3">
             <div class="card" style="width: 15em">
-                <img src="/{{mangas.image_url}}" class="card custom-img" alt="Image du manga">
-                <div
-                    class="card-overlay position-absolute top-0 start-0 bottom-0 end-0 d-flex justify-content-center align-items-center">
+                <img src="{{manga.dataValues.image_url}}" class="card custom-img" alt="Image du manga">
+                <div class="card-overlay position-absolute top-0 start-0 bottom-0 end-0 d-flex justify-content-center align-items-center">
                     <div class="overlay-content text-center">
-                        <a href="/descriptionManga/{{this.id}}" class="stretched-link"></a>
-                        <h5 class="card-title">{{mangas.title}}</h5>
-                        <p class="card-text">Auteur: {{author.name}}</p>
-                        <p class="card-text">Genre: {{kind.Name}}</p>
-                        <p class="card-text">Nombre de tomes: {{mangas.volume}}</p>
+                        <a href="/descriptionManga/{{manga.dataValues.id}}" class="stretched-link"></a>
+                        <h5 class="card-title">{{manga.dataValues.title}}</h5>
+                        <p class="card-text">Auteur: {{manga.author.name}}</p>
+                        <p class="card-text">Genre: {{manga.kind.Name}}</p>
+                        <p class="card-text">Nombre de tomes: {{manga.dataValues.volume}}</p>
                     </div>
                 </div>
             </div>

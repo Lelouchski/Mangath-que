@@ -160,7 +160,7 @@ router.route('/Login')
         userController.login)
 
 router.route('/Account')
-    .get(userController.account)
+    .get(followController.account)
 
 router.route('/Account/update/:id')
     .get(userController.getUpdate)
@@ -188,10 +188,10 @@ router.route('/Readlist/:mangaId')
     .post(followController.postToRead)
 
 // router.route('/inProgress/:mangaId')
-//     .post(userController.postInProgress)
+//     .post(followController.postInProgress)
 
-// router.route('/alreadyRead/:mangaId')
-//     .post(userController.postAlreadyRead)
+router.route('/Account/:mangaId')
+    .post(followController.postAlreadyRead)
 
 
 module.exports = router

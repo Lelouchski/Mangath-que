@@ -43,6 +43,18 @@ ul.list-group li#list-account.list-group-item a{
 .custom-fav:hover{
     fill: goldenrod
 }
+.custom-fav2{
+    fill: rgb(83, 26, 35); 
+}
+.custom-fav2:hover{
+    fill: goldenrod
+}
+.custom-fav3{
+    fill: rgb(17, 118, 29); 
+}
+.custom-fav3:hover{
+    fill: goldenrod
+}
 .error{
     color: red;
     display: none;

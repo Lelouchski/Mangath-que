@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt') // Importation du module bcrypt pour le hachage
 const Manga = require('../Models/MangaModel')
 const Author = require('../Models/AuthorModel')
 const Kind = require('../Models/KindModel')
-const Status = require('../Models/StatusModel')
 const Follow = require('../Models/followModel')
 
 
@@ -73,9 +72,6 @@ module.exports = {
                 }
             }
         }
-    },
-    account: (req, res) => {
-        res.render('Account')
     },
 
     login: async (req, res) => {
