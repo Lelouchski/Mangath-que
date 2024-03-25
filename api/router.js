@@ -187,8 +187,8 @@ router.route('/edit/users/:id')
 router.route('/Readlist/:mangaId')
     .post(followController.postToRead)
 
-// router.route('/inProgress/:mangaId')
-//     .post(followController.postInProgress)
+router.route('/inProgress/:mangaId')
+    .post(followController.postInProgress)
 
 router.route('/Account/:mangaId')
     .post(followController.postAlreadyRead)

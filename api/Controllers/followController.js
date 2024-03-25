@@ -50,6 +50,8 @@ module.exports = {
               }
             ], nest: true,
         })
+
+        
         res.render('Readlist', { mangas: toReadMangas })
 
     }
@@ -94,15 +96,24 @@ module.exports = {
               }
             ], nest: true,
         })
-        res.render('Account', { mangas: toReadMangas })
+        const alreadyRead = await Follow.findAll({
+            where: {
+                statusId : 1
+             },
+            include: [
+              {
+                model: Manga,
+                include: [Author, Kind], 
+              }
+            ], nest: true,
+        }) 
+        console.log(toReadMangas, alreadyRead);
+        res.render('Account', { toReadMangas,alreadyRead })
 
     },
 
 
-    // postAlreadyRead: async (req, res) => {
-
-    //     res.render('?')
-    // },
+    postInProgress :
 
 
 
