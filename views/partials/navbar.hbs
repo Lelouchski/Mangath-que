@@ -23,7 +23,7 @@
                             <li><a class="dropdown-item" href="/kinds/seinen">Seinen</a></li>
                             <li><a class="dropdown-item" href="/kinds/seijin">Seijin</a></li>
                             <li><a class="dropdown-item" href="/kinds/josei">Josei</a></li>
-                            <li><a class="dropdown-item" href="/kinds/manwha">Manwha</a></li>
+                            <li><a class="dropdown-item" href="/kinds/manhwa">Manhwa</a></li>
                         </ul>
                     </li>
                     {{#if isAdmin}}
@@ -35,9 +35,8 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/gestionUsers">Liste des membres</a></li>
                             <li><a class="dropdown-item" href="/addMangas">Ajouter un manga</a></li>
-                            <li><a class="dropdown-item" href="#">Liste des mangas ajoutés</a></li>
-                            <li><a class="dropdown-item" href="#">Manhwa</a></li>
-                            <li><a class="dropdown-item" href="#">Kowai</a></li>
+                            <li><a class="dropdown-item" href="/confirmListAdd">Liste des mangas ajoutés</a></li>
+                            <li><a class="dropdown-item" href="/listAddMangas">Demandes d'ajouts</a></li>
                         </ul>
                     </li>
                     {{/if}}
@@ -83,7 +82,7 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="/Account">Mon compte</a></li>
-                            <li><a class="dropdown-item" href="/Watchlist">Readlist</a></li>
+                            <li><a class="dropdown-item" href="/Readlist">Readlist</a></li>
                             <hr class="dropdown-divider">
                             <li><a class="dropdown-item text-danger" href="/logout">Déconnexion</a></li>
                         </ul>
@@ -115,7 +114,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="px-4 py-3" role="search" method="post" action="/descriptionManga/{{id}}">
+                <form class="px-4 py-3" role="search" method="post" action="/searchResult">
                     <div class="mb-3">
                         <input type="search" class="form-control form-control-lg" name="title">
                     </div>

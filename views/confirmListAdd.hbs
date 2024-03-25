@@ -1,0 +1,27 @@
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Nombre de tomes</th>
+            <th scope="col">Description</th>
+            <th scope="col">Accepté</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each mangas}}
+        <tr>
+            <td>{{title}}</td>
+            <td>{{author.name}}</td>
+            <td>{{kind.Name}}</td>
+            <td>{{volume}}</td>
+            <td>{{description}}</td>
+            <td>{{moment this.createdAt format="DD/MM/YYYY [à] HH:mm"}}</td>
+            <td>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

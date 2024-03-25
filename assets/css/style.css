@@ -43,3 +43,12 @@ ul.list-group li#list-account.list-group-item a{
 .custom-fav:hover{
     fill: goldenrod
 }
+.error{
+    color: red;
+    display: none;
+}
+
+.error-message{
+    color: red;
+    margin-left: 30px;
+}

@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize')
 const config = require('../../config')
 const Author = require('../Models/AuthorModel')
 const Kind = require('../Models/KindModel')
+const Follow = require('../Models/followModel')
 
 
 const Manga = config.sequelize.define('mangas', {
