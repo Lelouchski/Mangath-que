@@ -34,6 +34,7 @@ Follow.belongsTo(Status)
 User.hasMany(Follow)
 Status.hasMany(Follow)
 
+Follow.belongsTo(Manga)
 
 
 

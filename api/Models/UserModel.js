@@ -68,7 +68,7 @@ User.sync().then(
         isVerified: 1,
         isAdmin: 1,
         isModerator: 0,
-        isMember: 0,
+        isMember: 1,
         password: 'admin'
       }
     })
@@ -82,7 +82,7 @@ User.sync().then(
         isVerified: 1,
         isAdmin: 0,
         isModerator: 1,
-        isMember: 0,
+        isMember: 1,
         password: 'modo1'
       }
     })

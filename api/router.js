@@ -176,7 +176,7 @@ router.route('/logout')
     .get(userController.logout)
 
 router.route('/Readlist')
-    .get(userController.readlist)
+    .get(followController.readlist)
 
 router.route('/gestionUsers')
     .get(userController.list)

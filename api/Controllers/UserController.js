@@ -18,9 +18,7 @@ module.exports = {
     inscription: (req, res) => {
         res.render('Inscription')
     },
-    readlist: (req, res) => {
-        res.render('Readlist')
-    },
+    
 
     postInscription: async (req, res) => {
         // je stock dans result le resultat des controle d'express validator
