@@ -128,34 +128,23 @@
                     <h4 class="mb-0 text-center">Mangas déjà lus</h4>
                 </div>
                 <hr>
-                <div class="row">
-                    <div class="col-lg-6 mb-2 pr-lg-1">
-                        <div class="card border-2 border-white">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
-                                class="card-img-top img-fluid rounded shadow-sm">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-2 pl-lg-1">
-                        <div class="card border-2 border-white">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-4.jpg" alt=""
-                                class="card-img-top img-fluid rounded shadow-sm">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-2 pl-lg-1">
-                        <div class="card border-2 border-white">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-4.jpg" alt=""
-                                class="card-img-top img-fluid rounded shadow-sm">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-2 pl-lg-1">
-                        <div class="card border-2 border-white">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-4.jpg" alt=""
-                                class="card-img-top img-fluid rounded shadow-sm">
-                        </div>
+                <div class="row mt-5 ">
+        {{#each mangas}}
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 15em">
+                <img src="{{manga.dataValues.image_url}}" class="card custom-img" alt="Image du manga">
+                <div class="card-overlay position-absolute top-0 start-0 bottom-0 end-0 d-flex justify-content-center align-items-center">
+                    <div class="overlay-content text-center">
+                        <a href="/descriptionManga/{{manga.dataValues.id}}" class="stretched-link"></a>
+                        <h5 class="card-title">{{manga.dataValues.title}}</h5>
+                        <p class="card-text">Auteur: {{manga.author.name}}</p>
+                        <p class="card-text">Genre: {{manga.kind.Name}}</p>
+                        <p class="card-text">Nombre de tomes: {{manga.dataValues.volume}}</p>
                     </div>
                 </div>
             </div>
-
+        </div>
+        {{/each}}
             <div class="py-4 px-4">
                 <div class="profile-heading mb-3">
                     <h4 class="mb-0 text-center">Mangas favoris</h4>
