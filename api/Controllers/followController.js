@@ -40,11 +40,13 @@ module.exports = {
 
     readlist: async (req, res) => {
         const toReadMangas = await Follow.findAll({
+            where: {
+                statusId : 3
+             },
             include: [
               {
                 model: Manga,
                 include: [Author, Kind], 
-                attributes: ['title', 'volume', 'image_url'], 
               }
             ], nest: true,
         })
@@ -80,11 +82,15 @@ module.exports = {
     },
     account: async (req, res) => {
         const toReadMangas = await Follow.findAll({
+            where: {
+               statusId : 1 
+            },
+            
             include: [
               {
                 model:Manga,
                 include: [Author, Kind], 
-                attributes: ['title', 'volume', 'image_url'], 
+                attributes: ['title', 'volume', 'image_url'],
               }
             ], nest: true,
         })
