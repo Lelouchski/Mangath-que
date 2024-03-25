@@ -6,6 +6,7 @@ const Kind = require('../Models/KindModel')
 const Status = require('../Models/StatusModel')
 const multer = require('multer')
 const { Op } = require("sequelize") // Importation de l'opérateur d'égalité Sequelize
+const { log } = require('handlebars')
 
 
 
@@ -19,15 +20,50 @@ module.exports = {
 
         const mangas = await Manga.findAll({
             where: { title: { [Op.substring]: req.body.title } },
-            attributes: ['id', 'title', 'kind', 'author', 'volume', 'image_url', 'description'],
-            raw: true
+            attributes: ['title', 'kindId', 'authorId', 'image_url', 'description'],
+            raw: true,
+            include: [
+                {
+                    model: Author,
+                },
+                {
+                    model: Kind,
+                }
+            ]
         })
+        res.render('searchResult', { mangas })
+    },
+    goDescription: async (req, res) => {
+        const mangas = await Manga.findByPk(req.params.id, {
+            include: [
+                {
+                    model: Author,
+                },
+                {
+                    model: Kind,
+                }
+            ], raw: true,
+            nest: true
+        })
+
         res.render('descriptionManga', { mangas })
     },
 
     newMangas: async (req, res) => {
-        const mangas = await Manga.findAll({ raw: true }) // Récupération de tous les mangas depuis la base de données
-        res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas
+        const mangas = await Manga.findAll({
+            include: [
+                {
+                    model: Author,
+                },
+                {
+                    model: Kind,
+                }
+            ], raw: true,
+            nest: true
+        })
+        console.log(mangas) // Récupération de tous les mangas depuis la base de données
+        res.render('NewsMangas', { mangas }) // Rendu de la vue addMangas avec la liste des mangas   
+
     },
     getupdateManga: async (req, res) => {
         const manga = await Manga.findByPk(req.params.id, { raw: true })
@@ -61,62 +97,75 @@ module.exports = {
     },
 
     postAddMangas: async (req, res) => {
+        // // je recupere le nom d'auteur 
+        // const authorname = req.body.authorname
+        // // si il n'es=xiste pas je le crée
+        // authorname = await Author.findOrCreate({
+        //     where: { name: authorname }
+        // })
+        // // je recupere le genre
+        // // si il n'existe pas je le crée
+        // const kindName = req.body.kindName
+        // kindName = await Kind.findOrCreate({
+        //     where: { Name: kindName }
+        // })
 
         await Manga.create({
             title: req.body.title,
-            author: req.body.author,
-            kind: req.body.kind,
+            authorId: req.body.authorId,//a remplacé pas authorID de l'auteur crée ou trouvé
+            kindId: req.body.kindId,// /a remplacé pas kindID du kind crée ou trouvé
             volume: req.body.volume,
             description: req.body.description,
             image_url: req.file.path
-
-        })
-        res.redirect('NewsMangas') // Redirection vers la page 
-
+        }
+        )
+        res.redirect('/NewsMangas') // Redirection vers la page 
     },
 
-    kindOfMangas: async (req, res) => {
-        const genre = req.params.genre
-
+    kindOfMangas : async (req, res) => {
         try {
-            const mangas = await Manga.findAll({ where: { genre } })
-
-            res.json(mangas)
+            const genre = req.params.genre;
+            // Récupération de tous les mangas avec les informations sur l'auteur et le genre
+            const mangas = await Manga.findAll({
+                include: [
+                    { model: Author },
+                    { model: Kind,}
+                ],
+                where: {
+                    '$kind.name$': genre // Utilisation de l'alias du modèle Kind pour filtrer par nom de genre
+                },
+                nest:true, raw: true // Pour récupérer les résultats sous forme de tableau JavaScript simple
+            });
+            console.log(mangas);
+            // Rendu de la vue avec la liste des mangas
+            res.render('KindOfMangas', { mangas });
         } catch (error) {
-            console.error('Error ', error)
-            res.status(500).json({ error: ' Error' })
+            console.error('Error ', error);
+            res.status(500).json({ error: 'Error' });
         }
     },
+    
     getListAddMangas: async (req, res) => {
+
         const mangas = await Manga.findAll({
-            include: [{
-                model: User,
-                where: { isAdmin: false, isMember: true }
-            }],
-            raw: true
-
+            where: {
+                isVerified: 0,
+            },
+            include: [
+                { model: Author },
+                { model: Kind }
+            ],
+            raw: true,
+            nest: true
         })
-        console.log(mangas)
-        res.render('listAddMangas', { mangas, layout: 'admin' })
 
+        res.render('listAddMangas', { mangas, layout: 'admin' })
     },
 
-    // postListAddMangas: async (req, res) => {
-    //     const mangas = await Manga.findAll({
-    //         include: [{
-    //             model: User,
-    //             where: { isAdmin: false }
-    //         }],
-    //         raw: true
-
-    //     })
-
-    //     res.render('Account', { mangas, layout: 'admin' })
-
-    // },
     getProposition: (req, res) => {
         res.render('ProposeNewManga')
     },
+
     postProposition: async (req, res) => {
 
         await Manga.create({
@@ -124,10 +173,46 @@ module.exports = {
             author: req.body.author,
             kind: req.body.kind,
             volume: req.body.volume,
-            description: req.body.description
+            description: req.body.description,
+            image_url: req.file.path,
         })
 
-        res.redirect('Account')
+        res.redirect('/Account')
 
-    }
+    },
+
+    refuseMangaList: async (req, res) => {
+        await Manga.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.redirect('/listAddMangas') // Redirection vers la liste des mangas
+    },
+    acceptMangaList: async (req, res) => {
+        await Manga.update(
+            { isVerified: true },
+            { where: { id: req.params.id } }
+        )
+        res.redirect('/NewsMangas')
+    },
+
+    getConfirmListAdd: async (req, res) => {
+
+        const mangas = await Manga.findAll({
+            where: {
+                isVerified: 1
+            },
+            order: [['createdAt', 'DESC']], // Tri des commentaires par date de création décroissante
+            include: [
+                { model: Author },
+                { model: Kind },
+                { model: User }
+            ],
+            raw: true,
+            nest: true
+        })
+
+        res.render('confirmListAdd', { mangas, layout: 'admin' })
+    },
 }

@@ -30,25 +30,24 @@
                             <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
                                 class=" card rounded shadow-sm w-100 border-2 border-white"> 
                         </div>
-                    </div>
-                    <div class="col-lg-4 mt-4">
-                        <div class="card-img">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
-                                class=" card rounded shadow-sm w-100 border-2 border-white"> 
+                        <div class="modal-body">
+                            Voulez-vous supprimer ce manga définitivement ? : {{title}}
+                        </div>
+                        <div class="modal-footer">
+                            <form action="/NewsMangas/delete/{{id}}" method="post">
+                                <button type="submit" class="btn bg-danger-subtle border-white">Supprimer définitivement</button>
+                            </form>
                         </div>
                     </div>
-                    <div class="col-lg-4 mt-4">
-                        <div class="card-img">
-                            <img src="https://bootstrapious.com/i/snippets/sn-profile/img-3.jpg" alt=""
-                                class=" card rounded shadow-sm w-100 border-2 border-white"> 
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="text-center">
-                    <a href="#" class="btn btn-link text-muted link-offset-1-hover">Voir plus</a>
                 </div>
             </div>
-        </div>
+        {{/each}}
+        {{#unless mangas}}
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert">
+                    Il n'y a pas d'articles disponibles pour le moment.
+                </div>
+            </div>
+        {{/unless}}
     </div>
 </div>

@@ -19,8 +19,7 @@
           Inscription
         </div>
         <div class="card-body">
-          <form name="inscription" action="/Inscription" method="post">
-
+          <form action="/Inscription" method="post">
             <div class="mb-3">
 
               <label for="username" class="form-label">Nom d'utilisateur</label>
@@ -32,16 +31,12 @@
             <div class="mb-3">
 
               <label for="email" class="form-label">Adresse mail</label>
-              <input name="email" type="text" class="form-control" id="email" placeholder="nom@exemple.fr">
-              <span class="error" role="alert-alert"></span>
-
+              <input name="email" type="email" class="form-control" id="email" placeholder="nom@exemple.fr">
             </div>
 
             <div class="mb-3">
               <label for="password" class="form-label">Mot de passe</label>
               <input name="password" type="password" class="form-control" id="password" placeholder="Mot de passe">
-              <span class="error" role="alert-alert"></span>
-
             </div>
 
             <div class="mb-3">
@@ -49,8 +44,6 @@
               <label for="confPassword" class="form-label">Confirmation du mot de passe</label>
               <input name="confPassword" type="password" class="form-control" id="confPassword"
                 placeholder="Confirmer le mot de passe">
-              <span class="error" role="alert-alert"></span>
-
             </div>
 
             <div class="mb-3 d-flex justify-content-center" id="buttonDiv">

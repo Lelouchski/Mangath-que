@@ -1,3 +1,4 @@
+
 const express = require('express') 
 const { engine, ExpressHandlebars } = require('express-handlebars') 
 const router = require('./api/router') 
@@ -20,17 +21,17 @@ app.engine('hbs', engine({
         ifCond: function(v1, v2, options){
             if (options && typeof options.fn === 'function' && typeof options.inverse === 'function') {
                 if (v1 === v2) {
-                    return options.fn(this); // Exécute le bloc de code conditionnel si la condition est vraie
+                    return options.fn(this) // Exécute le bloc de code conditionnel si la condition est vraie
                 } else {
-                    return options.inverse(this); // Exécute le bloc de code alternatif si la condition est fausse
+                    return options.inverse(this) // Exécute le bloc de code alternatif si la condition est fausse
                 }
             } else {
-                console.error("Les options ne sont pas correctement définies.");
-                return ""; // Retourne une chaîne vide si les options ne sont pas correctement définies
+                console.error("Les options ne sont pas correctement définies.")
+                return "" // Retourne une chaîne vide si les options ne sont pas correctement définies
             }
         }
     }
-}));
+}))
 
 app.set('view engine', 'hbs')
 
@@ -55,6 +56,7 @@ app.use(session({
 app.use('*', (req, res, next) => {
     if (req.session.username) { // Vérification si un utilisateur est connecté
         res.locals.username = req.session.username // Variable locale contenant le nom d'utilisateur
+        res.locals.userId = req.session.userId
         if (req.session.isAdmin) { // Vérification si l'utilisateur est administrateur
             res.locals.isAdmin = req.session.isAdmin // Variable locale indiquant si l'utilisateur est administrateur
         }

@@ -25,31 +25,31 @@ Kind.sync().then(
   () => {
     Kind.findOrCreate({
       where: {
-          Name: 'Shonen',
+        Name: 'Shonen',
       },
       defaults: {
-          id: 1,
-          Name: 'Shonen'
+        id: 1,
+        Name: 'Shonen'
       }
-  })
-  Kind.findOrCreate({
+    })
+    Kind.findOrCreate({
       where: {
-          Name: 'Seinen',
+        Name: 'Seinen',
       },
       defaults: {
-          id: 2,
-          Name: 'Seinen'
+        id: 2,
+        Name: 'Seinen'
       }
-  })
-  Kind.findOrCreate({
+    })
+    Kind.findOrCreate({
       where: {
-          Name: 'Manhwa',
+        Name: 'Manhwa',
       },
       defaults: {
-          id: 3,
-          Name: 'Manhwa'
+        id: 3,
+        Name: 'Manhwa'
       }
+    })
   })
-})
 
 module.exports = Kind

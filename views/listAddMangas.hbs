@@ -6,6 +6,7 @@
             <th scope="col">Genre</th>
             <th scope="col">Nombre de tomes</th>
             <th scope="col">Description</th>
+            <th scope="col">isVerified</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -13,10 +14,11 @@
         {{#each mangas}}
         <tr>
             <td>{{title}}</td>
-            <td>{{author}}</td>
-            <td>{{kind}}</td>
+            <td>{{author.name}}</td>
+            <td>{{kind.Name}}</td>
             <td>{{volume}}</td>
             <td>{{description}}</td>
+            <td>{{isVerified}}</td>
             <td>
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
@@ -48,9 +50,9 @@
                 <p>Voulez-vous vraiment accepter cette demande ?</p>
             </div>
             <div class="modal-footer">
-                <form action="/delete/users/{{id}}" method="post">
+                <form action="/accept/manga/{{id}}" method="post">
                     <button type="submit" class="btn bg-success-subtle border-white">
-                        Refuser définitivement
+                        Accepter définitivement
                     </button>
                 </form>
             </div>
@@ -71,7 +73,7 @@
                 <p>Voulez-vous vraiment refuser cette demande ?</p>
             </div>
             <div class="modal-footer">
-                <form action="/delete/users/{{id}}" method="post">
+                <form action="/refuse/manga/{{id}}" method="post">
                     <button type="submit" class="btn bg-danger-subtle border-white">
                         Refuser définitivement
                     </button>

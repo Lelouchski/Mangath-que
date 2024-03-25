@@ -1,29 +1,66 @@
 <div class="container">
     <div class="row mt-5">
-        {{#each mangas}}
         <div class="col-md-6 mb-3">
             <div class="row">
                 <div class="col-md-6">
                     <div class="card custom-card">
-                        <img src="/{{image_url}}" class="img-fluid card" alt="Image du manga">
+                        <img src="/{{mangas.image_url}}" class="img-fluid card" alt="Image du manga">
                         <div class="card-overlay position-absolute top-0 start-0 bottom-0 end-0 d-flex justify-content-center align-items-center">
                             <div class="overlay-content text-center">
-                                <h5 class="card-title">{{title}}</h5>
-                                <p class="card-text">Auteur: {{author}}</p>
-                                <p class="card-text">Genre: {{kind}}</p>
-                                <p class="card-text">Nombre de tomes: {{volume}}</p>
+                                <h5 class="card-title">{{mangas.title}}</h5>
+                                <p class="card-text">Auteur: {{mangas.author.name}}</p>
+                                <p class="card-text">Genre: {{mangas.kind.Name}}</p>
+                                <p class="card-text">Nombre de tomes: {{mangas.volume}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="p-3">
-                        <h5>Synopsis</h5><hr>
-                        <p>{{description}}</p>
+                        <h5>Synopsis</h5>
+                        <hr>
+                        <p>{{mangas.description}}</p>
                     </div>
                 </div>
             </div>
         </div>
-        {{/each}}
+        <!-- Nouvelle colonne pour les icônes -->
+        <div class="col-md-6 mb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="p-3">
+                        <form action="/Readlist/{{mangas.id}}" method="post">
+                            <button type="submit" class="btn border-0">
+                                <svg class="custom-fav" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M12 20.703l.343.667a.748.748 0 0 1-.686 0l-.003-.002-.007-.003-.025-.013a31.138 31.138 0 0 1-5.233-3.576C3.8 15.573 1 12.332 1 8.514v-.001C1 5.053 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262a31.148 31.148 0 0 1-5.233 3.576l-.025.013-.007.003-.002.001ZM6.736 4C4.657 4 2.5 5.88 2.5 8.514c0 3.107 2.324 5.96 4.861 8.12a29.655 29.655 0 0 0 4.566 3.175l.073.041.073-.04c.271-.153.661-.38 1.13-.674.94-.588 2.19-1.441 3.436-2.502 2.537-2.16 4.861-5.013 4.861-8.12C21.5 5.88 19.343 4 17.264 4c-2.106 0-3.801 1.389-4.553 3.643a.751.751 0 0 1-1.422 0C10.537 5.389 8.841 4 6.736 4Z"></path>
+                                </svg>
+                            </button>
+                        </form>
+                        <p>Liste à lire</p>
+                    </div>
+                    <div class="p-3">
+                        <form action="/inProgress/{{mangas.id}}" method="post">
+                            <button type="submit" class="btn border-0">
+                                <svg class="custom-fav2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M12 20.703l.343.667a.748.748 0 0 1-.686 0l-.003-.002-.007-.003-.025-.013a31.138 31.138 0 0 1-5.233-3.576C3.8 15.573 1 12.332 1 8.514v-.001C1 5.053 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262a31.148 31.148 0 0 1-5.233 3.576l-.025.013-.007.003-.002.001ZM6.736 4C4.657 4 2.5 5.88 2.5 8.514c0 3.107 2.324 5.96 4.861 8.12a29.655 29.655 0 0 0 4.566 3.175l.073.041.073-.04c.271-.153.661-.38 1.13-.674.94-.588 2.19-1.441 3.436-2.502 2.537-2.16 4.861-5.013 4.861-8.12C21.5 5.88 19.343 4 17.264 4c-2.106 0-3.801 1.389-4.553 3.643a.751.751 0 0 1-1.422 0C10.537 5.389 8.841 4 6.736 4Z">
+                                    </path>
+                                </svg>
+                            </button>
+                       </form>
+                        <p>Liste en cours</p>
+                    </div>
+                    <div class="p-3">
+                        <form action="/Account/{{mangas.id}}" method="post">
+                            <button type="submit" class="btn border-0">
+                                <svg class="custom-fav3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M12 20.703l.343.667a.748.748 0 0 1-.686 0l-.003-.002-.007-.003-.025-.013a31.138 31.138 0 0 1-5.233-3.576C3.8 15.573 1 12.332 1 8.514v-.001C1 5.053 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262a31.148 31.148 0 0 1-5.233 3.576l-.025.013-.007.003-.002.001ZM6.736 4C4.657 4 2.5 5.88 2.5 8.514c0 3.107 2.324 5.96 4.861 8.12a29.655 29.655 0 0 0 4.566 3.175l.073.041.073-.04c.271-.153.661-.38 1.13-.674.94-.588 2.19-1.441 3.436-2.502 2.537-2.16 4.861-5.013 4.861-8.12C21.5 5.88 19.343 4 17.264 4c-2.106 0-3.801 1.389-4.553 3.643a.751.751 0 0 1-1.422 0C10.537 5.389 8.841 4 6.736 4Z"></path>
+                                </svg>
+                            </button>
+                        </form>
+                        <p>Déjà lu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

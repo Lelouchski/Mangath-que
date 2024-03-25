@@ -1,3 +1,4 @@
+
 const { validationResult } = require('express-validator') // Importation de la fonction validationResult d'express-validator
 const { Op } = require("sequelize") // Importation de l'opérateur d'égalité Sequelize
 const User = require('../Models/UserModel')
@@ -5,7 +6,6 @@ const bcrypt = require('bcrypt') // Importation du module bcrypt pour le hachage
 const Manga = require('../Models/MangaModel')
 const Author = require('../Models/AuthorModel')
 const Kind = require('../Models/KindModel')
-const Status = require('../Models/StatusModel')
 const Follow = require('../Models/followModel')
 
 
@@ -20,61 +20,32 @@ module.exports = {
     watchlist: (req, res) => {
         res.render('Watchlist')
     },
-    
 
 
     postInscription: async (req, res) => {
         // je stock dans result le resultat des controle d'express validator
         const result = validationResult(req) // Validation des données de la requête
-        console.log(result);
-        // si j'ai eu des erreurs renvoyer par express validator
-        if (!result.isEmpty()) {
-            // on les affiches sur la page d'inscription
-            res.render('Inscription', { 'errors': result.errors })
-            // sinon
-        } else {
-            // je cherche si un utilisateur possede ses identifiants et je stock dans user
-            const user = await User.findOne({
-                where: {
-                    [Op.or]: [
-                        { username: req.body.username },
-                        { email: req.body.email },
-                    ]
-                }
-            });
-            // Si l'utilisateur ou l'email ne sont pas disponibles
-            if (user) {
-                const errors = [{ msg: 'Ces identifiants existe déjà.' }];
-                console.log(errors);
-                // On affiche sur la page d'inscription
-                res.render('Inscription', { errors });
-                // sinon
-            } else {
-                // Si les mots de passe sont différents
-                if (req.body.password !== req.body.confPassword) {
-                    //on stock dans errors un message d'erreur a l'identique de result a la premiere etape 
-                    const errors = [{ msg: 'Identifiants érronés.' }];
-                    // On affiche sur la page d'inscription
-                    res.render('Inscription', { errors });
-                    // sinon
-                } else {
-                    // on crée l'utilisateur
-                    try {
-                        // Inscription
-                        await User.create({
-                            username: req.body.username,
-                            email: req.body.email,
-                            password: req.body.password
-                        });
-                        res.redirect('/Login') // Redirection vers la page Login
-                    } catch (err) {
-                        // En cas d'erreur lors de l'inscription
-                        // On affiche sur la page d'inscription
-
-                        res.render('Inscription', { err });
-                    }
-                }
+        const user = await User.findOne({ // Recherche d'un utilisateur existant avec le même nom d'utilisateur ou email
+            where: {
+                [Op.or]: [
+                    { password: req.body.password },
+                    { email: req.body.email }
+                ]
             }
+        })
+
+        if (!result.isEmpty()) {
+            // Rendu de la vue Inscription avec les données saisies et les erreurs de validation
+            res.render('Inscription', { email, username, password, 'errors': result.errors })
+
+        } else { // Si aucune erreur de validation
+            // Création d'un nouvel utilisateur avec les données saisies
+            User.create({
+                email: req.body.email,
+                username: req.body.username,
+                password: req.body.password
+            })
+            res.redirect('/Login') // Redirection vers la page Login
         }
     },
     account: (req, res) => {
@@ -93,16 +64,17 @@ module.exports = {
         })
 
         if (!user) { // Si aucun utilisateur correspondant n'est trouvé
-            res.render('Login', { 'error': 't qui' })
+            res.render('Login', { 'error': 'Ce compte est introuvable' })
         } else { // Si un utilisateur correspondant est trouvé
             // Comparaison du mot de passe saisi avec le mot de passe haché de l'utilisateur en base de données
             bcrypt.compare(password, user.password, async (err, result) => {
                 if (!result) { // Si les mots de passe ne correspondent pas
                     // Rendu de la vue login avec un message d'erreur
-                    res.status(401).render('login', { 'error': 'Identifiant incorrect' })
+                    res.status(401).render('login', { 'error': 'Mot de passe incorrect' })
                 } else { // Si les mots de passe correspondent
                     // Enregistrement de l'utilisateur dans la session
                     req.session.username = user.username
+                    req.session.userId = user.id
                     res.redirect('/Account')
                 }
                 if (user.isAdmin) { // Si l'utilisateur est un administrateur
@@ -127,7 +99,7 @@ module.exports = {
     },
     updateUser: async (req, res) => {
         // Recherche de l'utilisateur à mettre à jour
-        const user = await User.findByPk(req.params.id);
+        const user = await User.findByPk(req.params.id)
 
         // Mise à jour des rôles de l'utilisateur
         await user.update({
@@ -138,5 +110,87 @@ module.exports = {
         })
 
         res.redirect('/gestionUsers')
+    },
+
+    // récupérer user à modifier
+    getUpdate: async (req, res) => {
+        const user = await User.findByPk(req.params.id, { raw: true })
+        res.redirect('/Account')
+    },
+
+    postUpdate: async (req, res) => {
+        const user = await User.findByPk(req.params.id, { raw: true })
+        if (!req.body.oldPassword) {
+            bcrypt.compare(req.body.password, user.password, async function (err, result) {
+                if (!result) {
+                    res.redirect('back')
+                } else {
+                    await User.update({
+                        email: req.body.email
+                    }, {
+                        where: {
+                            id: req.params.id
+                        }
+                    })
+                    res.redirect('/Account')
+                }
+            });
+        } else {
+            //comparer l'ancien MDP avec celui présent dans la BDD
+            bcrypt.compare(req.body.oldPassword, user.password, async function (err, result) {
+                if (!result) {
+                    res.redirect('back')
+                } else {
+                    //si OK
+                    //vérifier si le new MDP = newConfPass
+                    if (req.body.newPassword !== req.body.confNewPassword) {
+                        res.redirect('back')
+                    } else {
+                        //enregistrer le new MDP
+                        await User.update({
+                            password: req.body.newPassword
+                        }, { where: { id: req.params.id }, individualHooks: true })
+                        res.redirect('/Account')
+                    }
+                }
+            })
+        }
+    },
+    postUpdateEmail: async (req, res) => {
+        const user = await User.findByPk(req.params.id, { raw: true });
+    
+        // Vérifier si le mot de passe est fourni
+        if (!req.body.oldPassword) {
+            return res.redirect('back');
+        }
+    
+        // Comparer le mot de passe fourni avec celui stocké dans la base de données
+        bcrypt.compare(req.body.oldPassword, user.password, async function (err, result) {
+            if (!result) {
+                // Rediriger en arrière si le mot de passe fourni est incorrect
+                return res.redirect('back');
+            } else {
+                // Vérifier si les nouvelles adresses e-mail correspondent
+                if (req.body.newEmail !== req.body.confirmNewEmail) {
+                    // Rediriger en arrière si les adresses e-mail ne correspondent pas
+                    return res.redirect('back');
+                } else {
+                    // Mettre à jour l'adresse e-mail de l'utilisateur
+                    await User.update({
+                        email: req.body.newEmail
+                    }, {
+                        where: {
+                            id: req.params.id
+                        }
+                    });
+    
+                    // Rediriger vers la page du compte après la mise à jour réussie
+                    return res.redirect('/Account');
+                }
+            }
+        })
     }
+
+
 }
+
