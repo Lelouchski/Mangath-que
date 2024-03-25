@@ -187,11 +187,15 @@ router.route('/edit/users/:id')
 router.route('/Readlist/:mangaId')
     .post(followController.postToRead)
 
-router.route('/inProgress/:mangaId')
+router.route('/Account/:mangaId')
     .post(followController.postInProgress)
 
-router.route('/Account/:mangaId')
+router.route('/alreadyRead/:mangaId')
     .post(followController.postAlreadyRead)
+// router.route('/alreadyRead/delete/:mangaId')
+//     .post(followController.deleteAlreadyRead)
+router.route('/alreadyRead')
+    .get(followController.getAlreadyRead)
 
 
 module.exports = router

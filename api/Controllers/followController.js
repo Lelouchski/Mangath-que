@@ -41,22 +41,22 @@ module.exports = {
     readlist: async (req, res) => {
         const toReadMangas = await Follow.findAll({
             where: {
-                statusId : 3
-             },
+                statusId: 3
+            },
             include: [
-              {
-                model: Manga,
-                include: [Author, Kind], 
-              }
+                {
+                    model: Manga,
+                    include: [Author, Kind],
+                }
             ], nest: true,
         })
 
-        
+
         res.render('Readlist', { mangas: toReadMangas })
 
     }
     ,
-    postAlreadyRead:async (req, res) => {
+    postAlreadyRead: async (req, res) => {
         //je recherche dans la table follow si l'id user et l'id manga existe. 
         const isExist = await Follow.findAll({
             where: {
@@ -78,44 +78,95 @@ module.exports = {
                 userId: req.session.userId,
                 statusId: 1
             })
-            console.log(isExist)
             res.redirect('back')
         }
     },
     account: async (req, res) => {
-        const toReadMangas = await Follow.findAll({
+        const inProgress = await Follow.findAll({
             where: {
-               statusId : 1 
+                statusId: 2
             },
-            
+
             include: [
-              {
-                model:Manga,
-                include: [Author, Kind], 
-                attributes: ['title', 'volume', 'image_url'],
-              }
+                {
+                    model: Manga,
+                    include: [Author, Kind],
+                }
             ], nest: true,
         })
         const alreadyRead = await Follow.findAll({
             where: {
-                statusId : 1
-             },
+                statusId: 1
+            },
             include: [
-              {
-                model: Manga,
-                include: [Author, Kind], 
-              }
+                {
+                    model: Manga,
+                    include: [Author, Kind],
+                }
             ], nest: true,
-        }) 
-        console.log(toReadMangas, alreadyRead);
-        res.render('Account', { toReadMangas,alreadyRead })
-
+        })
+        res.render('Account', { inProgress, alreadyRead })
     },
 
 
-    postInProgress :
+    postInProgress: async (req, res) => {
+        //je recherche dans la table follow si l'id user et l'id manga existe. 
+        const isExist = await Follow.findAll({
+            where: {
+                [Op.and]:
+                {
+                    mangaId: req.params.mangaId,
+                    userId: req.session.userId
+                }
+            }
+        })
+        // si oui, 
+        if (!isExist) {
+            res.render('descriptionManga') // je renvoi vers la page
+        }
+        else {
+            //sinon je crée dans la table follow le trio idmanga, iduser, idstatus de toread
+            await Follow.create({
+                mangaId: req.params.mangaId,
+                userId: req.session.userId,
+                statusId: 2
+            })
+            res.redirect('back')
+        }
+    },
+
+    getAlreadyRead: async (req, res) => {
+        const toReadMangas = await Follow.findAll({
+            where: {
+                statusId: 1
+            },
+            include: [
+                {
+                    model: Manga,
+                    include: [Author, Kind],
+                }
+            ], nest: true,
+        })
 
 
+        res.render('alreadyRead', { mangas: toReadMangas })
+
+    },
+
+    // deleteAlreadyRead: async (req, res) => {
+
+    //     await Follow.destroy({
+    //             [Op.and]:
+    //             {
+    //                 mangaId: req.params.id,
+    //                 userId: req.session.userId,
+    //                 statusId: 1
+    //             }
+    //         })
+
+    //         res.redirect('back')
+       
+    // }
 
 
 }

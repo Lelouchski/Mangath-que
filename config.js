@@ -4,7 +4,6 @@ const { Sequelize } = require('sequelize')
 const sequelize = new Sequelize('mangatheque', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
-  logging: false
 })
 
 // Synchronisation du modèle avec la base de données
