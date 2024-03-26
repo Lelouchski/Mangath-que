@@ -22,8 +22,8 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     fileFilter: (req, file, cb) => {
-        const extension = path.extname(file.originalname).toLowerCase();// recupere l'extention
-        const mimetype = file.mimetype;// recupere le mimetype
+        const extension = path.extname(file.originalname).toLowerCase();// recuperate the extension
+        const mimetype = file.mimetype;// recuperate the mimetype
         if (
             extension !== '.jpg' &&
             extension !== '.jpeg' &&
@@ -34,7 +34,7 @@ const upload = multer({
             mimetype !== 'image/jpeg' &&
             mimetype !== 'image/webp'
         ) {
-            //on place une variable pour signifier qu'il y a une erreur. 
+            //variable for error
             req.fileValidationError = 'goes wrong on the mimetype'
             return cb(null, false, new Error('goes wrong on the mimetype'));
         }

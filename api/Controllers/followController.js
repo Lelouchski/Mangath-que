@@ -10,7 +10,7 @@ const Kind = require('../Models/KindModel')
 
 module.exports = {
     postToRead: async (req, res) => {
-        //je recherche dans la table follow si l'id user et l'id manga existe. 
+        //I search if in the follow table the id user and id manga exist 
         const isExist = await Follow.findAll({
             where: {
                 [Op.and]:
@@ -20,18 +20,17 @@ module.exports = {
                 }
             }
         })
-        // si oui, 
+        // if no, 
         if (!isExist) {
-            res.render('descriptionManga') // je renvoi vers la page
+            res.render('descriptionManga') // go on descriptionManga page
         }
         else {
-            //sinon je crée dans la table follow le trio idmanga, iduser, idstatus de toread
+            //else I create in the follow table the id manga , id user and id statuts toRead
             await Follow.create({
                 mangaId: req.params.mangaId,
                 userId: req.session.userId,
                 statusId: 3
             })
-            console.log(isExist);
             res.redirect('back')
         }
 
