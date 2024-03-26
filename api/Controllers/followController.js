@@ -84,7 +84,8 @@ module.exports = {
     account: async (req, res) => {
         const inProgress = await Follow.findAll({
             where: {
-                statusId: 2
+                statusId: 2,
+                userId: req.session.userId
             },
 
             include: [
@@ -96,7 +97,8 @@ module.exports = {
         })
         const alreadyRead = await Follow.findAll({
             where: {
-                statusId: 1
+                statusId: 1,
+                userId: req.session.userId
             },
             include: [
                 {
@@ -138,7 +140,8 @@ module.exports = {
     getAlreadyRead: async (req, res) => {
         const toReadMangas = await Follow.findAll({
             where: {
-                statusId: 1
+                statusId: 1,
+                userId: req.session.userId
             },
             include: [
                 {
