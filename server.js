@@ -43,7 +43,7 @@ app.use('/css', express.static(path.join(__dirname, 'assets/css')))
 
 app.use('/js', express.static(path.join(__dirname, 'assets/js')))
 
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')))
 
 app.use(session({
     secret: config.secretPassword, // Clé secrète utilisée pour signer les cookies de session

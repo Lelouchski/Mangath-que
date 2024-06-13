@@ -20,7 +20,10 @@
                     <a href="/ProposeNewManga" class="text-decoration-none">Proposer un nouveau manga</a>
                 </li>
                 <li id="list-account" class="list-group-item">
-                    <a class="dropdown-item" href="/Readlist">Readlist</a>
+                    <a class="dropdown-item" href="/Readlist">À lire</a>
+                </li>
+                <li id="list-account" class="list-group-item">
+                    <a class="dropdown-item" href="/alreadyRead">Déjà lu</a>
                 </li>
             </ul>
         </div>
@@ -28,11 +31,11 @@
         <div class="col-md-9">
             <div class="py-4 px-4">
                 <div class="profile-heading mb-3">
-                    <h4 class="mb-0 text-center">Mangas déjà lus</h4>
+                    <h4 class="mb-0 text-center">Mangas en cours</h4>
                 </div>
                 <hr>
-                <div class="row mt-5 ">
-                    {{#each mangas}}
+                <div class="row">
+                    {{#each inProgress}}
                     <div class="col-md-4 mb-3">
                         <div class="card" style="width: 15em">
                             <img src="{{manga.dataValues.image_url}}" class="card custom-img" alt="Image du manga">
@@ -49,99 +52,71 @@
                         </div>
                     </div>
                     {{/each}}
-                    <div class="py-4 px-4">
-                        <div class="profile-heading mb-3">
-                            <h4 class="mb-0 text-center">Mangas en cours</h4>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            {{#each mangas}}
-                            <div class="col-md-4 mb-3">
-                                <div class="card" style="width: 15em">
-                                    <img src="{{manga.dataValues.image_url}}" class="card custom-img"
-                                        alt="Image du manga">
-                                    <div
-                                        class="card-overlay position-absolute top-0 start-0 bottom-0 end-0 d-flex justify-content-center align-items-center">
-                                        <div class="overlay-content text-center">
-                                            <a href="/descriptionManga/{{manga.dataValues.id}}"
-                                                class="stretched-link"></a>
-                                            <h5 class="card-title">{{manga.dataValues.title}}</h5>
-                                            <p class="card-text">Auteur: {{manga.author.name}}</p>
-                                            <p class="card-text">Genre: {{manga.kind.Name}}</p>
-                                            <p class="card-text">Nombre de tomes: {{manga.dataValues.volume}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{/each}}
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="changePasswordModalLabel">Modifier le mot de passe</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="/Account/update/{{userId}}" method="post">
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="oldPassword" class="form-label">Rentrer votre ancien mot de passe</label>
-                                <input name="oldPassword" type="password" class="form-control" id="oldPassword">
-                            </div>
-                            <div class="mb-3">
-                                <label for="newPassword" class="form-label">Rentrer votre nouveau mot de passe</label>
-                                <input name="newPassword" type="password" class="form-control" id="newPassword">
-                            </div>
-                            <div class="mb-3">
-                                <label for="confNewPassword" class="form-label">Confirmer le nouveau mot de
-                                    passe</label>
-                                <input name="confNewPassword" type="password" class="form-control" id="confNewPassword">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                        </div>
-                    </form>
-                </div>
+    </div>
+</div>
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">Modifier le mot de passe</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-        <div class="modal fade" id="changeEmailModal" tabindex="-1" aria-labelledby="changeEmailModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="changeEmailModalLabel">Modifier l'adresse e-mail</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <form action="/Account/update/{{userId}}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="oldPassword" class="form-label">Rentrer votre ancien mot de passe</label>
+                        <input name="oldPassword" type="password" class="form-control" id="oldPassword">
                     </div>
-                    <form action="/Account/updateEmail/{{userId}}" method="post">
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="oldPassword" class="form-label">Mot de passe actuel</label>
-                                <input type="password" class="form-control" id="oldPassword" name="oldPassword"
-                                    required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="newEmail" class="form-label">Nouvelle adresse e-mail</label>
-                                <input type="email" class="form-control" id="newEmail" name="newEmail" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="confirmNewEmail" class="form-label">Confirmer la nouvelle adresse
-                                    e-mail</label>
-                                <input type="email" class="form-control" id="confirmNewEmail" name="confirmNewEmail"
-                                    required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                        </div>
-                    </form>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">Rentrer votre nouveau mot de passe</label>
+                        <input name="newPassword" type="password" class="form-control" id="newPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confNewPassword" class="form-label">Confirmer le nouveau mot de
+                            passe</label>
+                        <input name="confNewPassword" type="password" class="form-control" id="confNewPassword">
+                    </div>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
+<div class="modal fade" id="changeEmailModal" tabindex="-1" aria-labelledby="changeEmailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeEmailModalLabel">Modifier l'adresse e-mail</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/Account/updateEmail/{{userId}}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="oldPassword" class="form-label">Mot de passe actuel</label>
+                        <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newEmail" class="form-label">Nouvelle adresse e-mail</label>
+                        <input type="email" class="form-control" id="newEmail" name="newEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmNewEmail" class="form-label">Confirmer la nouvelle adresse
+                            e-mail</label>
+                        <input type="email" class="form-control" id="confirmNewEmail" name="confirmNewEmail" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
