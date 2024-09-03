@@ -2,23 +2,20 @@ const { DataTypes } = require('sequelize')
 const config = require('../../config')
 const Author = require('../Models/AuthorModel')
 const Kind = require('../Models/KindModel')
-const Follow = require('../Models/followModel')
+const Follow = require('../Models/FollowModel')
 
 
 const Manga = config.sequelize.define('mangas', {
-
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-
     },
     title: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-    },
-    
+    },    
     volume: {
         type: DataTypes.INTEGER,
         allowNull: false,

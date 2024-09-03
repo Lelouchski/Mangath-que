@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 const config = require('../../config')
 const User = require('./UserModel')
-const Follow = require('./followModel')
+const Follow = require('../Models/FollowModel')
 const Manga = require('./MangaModel')
 
 const Status = config.sequelize.define('status', {

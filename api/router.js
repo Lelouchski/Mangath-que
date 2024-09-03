@@ -103,9 +103,6 @@ router.route('/Login')
 
 router.route('/Inscription')
     .get(userController.inscription)
-
-router.route('/Inscription')
-    .get(userController.inscription)
     .post(
         body('email')
             .exists()

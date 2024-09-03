@@ -1,5 +1,5 @@
 const Manga = require('../Models/MangaModel');
-const Follow = require('../Models/followModel')
+const Follow = require('../Models/FollowModel')
 const { Op } = require('sequelize')
 const multer = require('multer')
 const Author = require('../Models/AuthorModel')
